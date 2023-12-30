@@ -2,7 +2,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 # Box / OS
-VAGRANT_BOX = 'bento/debian-10.6'
+VAGRANT_BOX = 'bento/debian-10'
 # Memorable name for your
 VM_NAME = 'cloud'
 # VM User — 'vagrant' by default
