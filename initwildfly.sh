@@ -137,18 +137,19 @@ installdb ()
 		apt-get install -y mariadb-server
 		cd /tmp
 		systemctl enable mariadb
-    fi
-
-	DBINSTALLED=`echo show tables\;|mysql -u $DBUSER -p$DBPASS $DB|wc -l`
-	if [ $INSTALLED = "0" ]
-    then 		
+   fi
+	echo "Comprobando si la DB esta configurada"
+	DBINSTALLED=`echo show tables\;|mysql --user=$DBUSER --password=$DBPASS $DB|wc -l`
+	if [ $DBINSTALLED = "0" ]
+	then
+		echo "Configurando la DB"
 		cat <<EOF | mysql                                                         
 CREATE DATABASE $DB;                                                                    
-CREATE USER 'sigma'@'localhost' IDENTIFIED BY 'sigmadb';                                
-GRANT ALL PRIVILEGES ON $DB.* TO 'sigma'@'localhost';                                   
+CREATE USER '$DBUSER'@'localhost' IDENTIFIED BY '$DBPASS';                                
+GRANT ALL PRIVILEGES ON $DB.* TO '$DBUSER'@'localhost';                                   
 EOF
-		getfromcode $DB.sql.bzip2
-		bzip2 -c -d $DB.sql.bzip2 | mysql $DB
+		getfromcode $DB\_desarrollo.sql.bzip2
+		bzip2 -c -d $DB\_desarrollo.sql.bzip2 | mysql $DB
 	else
 		echo $DB installed, do not delete
     fi
