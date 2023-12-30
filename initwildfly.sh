@@ -52,8 +52,8 @@ cat <<EOF | mysql
 DROP DATABASE $DB;
 DROP USER 'sigma'@'localhost';
 EOF
-    apt purge -y mariadb-server
-    apt purge -y apache2
+    apt-get purge -y mariadb-server
+    apt-get purge -y apache2
     sleep 10
 }
 
@@ -168,7 +168,7 @@ sigmaconf ()
 installapache ()
 {
     echo ####### Install apache
-    apt install -y apache2
+    apt-get install -y apache2
    
     mkdir -p /home/sigma
     cd /home/sigma
@@ -229,4 +229,5 @@ deploywars
 }
 
 fromzero
-fromzero()
+
+exit 0
