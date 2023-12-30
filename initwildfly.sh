@@ -216,6 +216,7 @@ EOF
 
 fromzero()
 {
+JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/bin/java
 sistemabase
 installwildflyandconnector
 configurewildfly
