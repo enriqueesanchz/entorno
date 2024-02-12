@@ -18,13 +18,15 @@ getfromcode()
 
 sistemabase ()
 {
-    OPTIONS='-y -q  -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confold"'
-    APTGET='sudo DEBIAN_FRONTEND=noninteractive apt-get '
+    #OPTIONS='-y -q  -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confold"'
+    #APTGET='sudo DEBIAN_FRONTEND=noninteractive apt-get '
     
-    $APTGET $OPTIONS install grub-pc
-    $APTGET $OPTIONS dist-upgrade
-    $APTGET $OPTIONS update
+    #$APTGET $OPTIONS install grub-pc
+    #$APTGET $OPTIONS dist-upgrade
+    apt-get update
+    #apt-get upgrade
     apt-get -y install default-jre curl unzip mariadb-server
+    apt-get -y install wget bzip2
 }
 
 dodeploy ()
@@ -40,20 +42,26 @@ limpiar ()
     echo ####### Removing: wildfly, apache2, galleon, mariadb
     echo Ejecutar a mano
     exit 1
-    systemctl stop wildfly
-    systemctl stop apache2
+    
+    #systemctl stop wildfly
+    #systemctl stop apache2
+    
+    $CLI -c --commands=":shutdown"
+    service apache2 stop
+
     rm -rf /opt/galleon*
     rm -rf /opt/wildfly
     rm -rf /etc/apache2
-    systemctl disable wildfly
-    systemctl daemon-reload
-    rm /etc/systemd/system/wildfly.service
+    #systemctl disable wildfly
+    #systemctl daemon-reload
+    #rm /etc/systemd/system/wildfly.service
 cat <<EOF | mysql
 DROP DATABASE $DB;
 DROP USER 'sigma'@'localhost';
 EOF
     apt-get purge -y mariadb-server
     apt-get purge -y apache2
+    apt-get clean
     sleep 10
 }
 
@@ -78,9 +86,13 @@ fi
     cp /opt/wildfly/docs/contrib/scripts/systemd/launch.sh    /opt/wildfly/bin/
     chmod +x /opt/wildfly/bin/*.sh
     cp /opt/wildfly/docs/contrib/scripts/systemd/wildfly.service /etc/systemd/system/
-    systemctl daemon-reload
-    systemctl enable wildfly
-    systemctl start  wildfly
+    
+    #systemctl daemon-reload
+    #systemctl enable wildfly
+    #systemctl start  wildfly
+    
+    /opt/wildfly/bin/standalone.sh &
+
     sleep 5
     /opt/wildfly/bin/add-user.sh -u admin -p admin -g PowerUser,BillingAdmin, -e
 
@@ -99,7 +111,11 @@ configurewildfly () {
     # Configure wildfly                                                                 
     $CLI --command='/socket-binding-group=standard-sockets/socket-binding=http/:write-attribute(name="port",value="${jboss.http.port:49001}")'
     $CLI --command='/subsystem=security:write-attribute(name=initialize-jacc, value=false)'
-    systemctl stop wildfly;systemctl start wildfly;sleep 10
+    
+    #systemctl stop wildfly;systemctl start wildfly;sleep 10
+    
+    $CLI -c --commands=":shutdown(restart=true)"
+
     $CLI --command='/subsystem=elytron/policy=jacc:add(jacc-policy={})'
     $CLI --command='/subsystem=undertow/application-security-domain=other:add(security-domain=ApplicationDomain,integrated-jaspi=false)'
 	$CLI --command='/subsystem=mail/mail-session=default/:write-attribute(name=from, value=notifyS4L@sigma4lifts.com)'
@@ -118,13 +134,15 @@ configurewildfly () {
 	$CLI --command="/subsystem=undertow/server=default-server/http-listener=default:write-attribute(name=redirect-socket,value=https)"
 	$CLI --command="/subsystem=undertow/server=default-server/http-listener=default:write-attribute(name=secure,value=true)"
 	
-    systemctl stop wildfly;systemctl start wildfly;sleep 10
+    #systemctl stop wildfly;systemctl start wildfly;sleep 10
+    $CLI -c --commands=":shutdown(restart=true)"
 }
 
 increasewildflymemory () 
 {
 	echo JAVA_OPTS=\"-Xms64m -Xmx1024m -XX:+UseG1GC -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=512m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true\" >> /opt/wildfly/bin/standalone.conf
-    systemctl stop wildfly;systemctl start wildfly;sleep 10
+    #systemctl stop wildfly;systemctl start wildfly;sleep 10
+    $CLI -c --commands=":shutdown(restart=true)"
 }
 
 
@@ -136,7 +154,8 @@ installdb ()
 		echo ####### Install mariadb
 		apt-get install -y mariadb-server
 		cd /tmp
-		systemctl enable mariadb
+		#systemctl enable mariadb
+        service mysql restart
    fi
 	echo "Comprobando si la DB esta configurada"
 	DBINSTALLED=`echo show tables\;|mysql --user=$DBUSER --password=$DBPASS $DB|wc -l`
@@ -186,12 +205,14 @@ installapache ()
     a2ensite  default-ssl
     a2ensite  000-default
 
-    systemctl restart apache2
+    #systemctl restart apache2
+    service apache2 restart
 }
 
 deploywars ()
 {
-    systemctl start wildfly
+    #systemctl start wildfly
+    #/opt/wildfly/bin/standalone.sh &
 
     for war in sigma.war SigmaControlWS.war
     do
@@ -229,5 +250,6 @@ deploywars
 }
 
 fromzero
+apt-get clean
 
 exit 0
