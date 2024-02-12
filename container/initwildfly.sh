@@ -250,6 +250,11 @@ deploywars
 }
 
 fromzero
+
+#Install vnc server and X display
+apt install x11vnc xvfb -y
+
+# Clean cache
 apt-get clean
 
 exit 0

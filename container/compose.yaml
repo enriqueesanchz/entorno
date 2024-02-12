@@ -1,0 +1,6 @@
+services:
+  desarrollo:
+    build: .
+    ports: 
+      - "5900:5900"
+    command: "x11vnc -create -forever"
