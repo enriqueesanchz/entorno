@@ -27,6 +27,14 @@ sistemabase ()
     #apt-get upgrade
     apt-get -y install default-jre curl unzip mariadb-server
     apt-get -y install wget bzip2
+    # Install vnc server and X display
+    apt install x11vnc xvfb -y
+
+    # Install eclipse
+    wget 'https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2023-12/R/eclipse-jee-2023-12-R-linux-gtk-x86_64.tar.gz&r=1' -O eclipse.tar.gz
+    tar -xzvf eclipse.tar.gz
+    chmod +x eclipse/eclipse
+    rm eclipse.tar.gz
 }
 
 dodeploy ()
@@ -251,8 +259,6 @@ deploywars
 
 fromzero
 
-#Install vnc server and X display
-apt install x11vnc xvfb -y
 
 # Clean cache
 apt-get clean
