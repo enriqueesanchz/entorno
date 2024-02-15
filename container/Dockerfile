@@ -20,16 +20,22 @@ COPY packages/viewer .
 RUN chmod +x ./x11vnc.sh && ./x11vnc.sh
 RUN chmod +x ./xfvb.sh && ./xfvb.sh
 
+WORKDIR /packages/tools
+COPY packages/tools .
+RUN chmod +x ./openfortivpn.sh && ./openfortivpn.sh
+RUN chmod +x ./eclipse.sh && ./eclipse.sh
+
 WORKDIR /packages/server
 COPY packages/server .
 RUN chmod +x ./apache2.sh && ./apache2.sh
 RUN chmod +x ./mariadb-server.sh && ./mariadb-server.sh
 RUN chmod +x ./wildfly.sh && ./wildfly.sh
 
-WORKDIR /packages/tools
-COPY packages/tools .
-RUN chmod +x ./openfortivpn.sh && ./openfortivpn.sh
-RUN chmod +x ./eclipse.sh && ./eclipse.sh
+WORKDIR /config
+COPY config .
+RUN chmod +x ./mariadb.sh && ./mariadb.sh
+RUN chmod +x ./apache2.sh && ./apache2.sh
+RUN chmod +x ./wildfly.sh && ./wildfly.sh
 
 CMD ["bash"]
 
