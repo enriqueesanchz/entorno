@@ -19,6 +19,7 @@ WORKDIR /packages/viewer
 COPY packages/viewer .
 RUN chmod +x ./x11vnc.sh && ./x11vnc.sh
 RUN chmod +x ./xfvb.sh && ./xfvb.sh
+EXPOSE 5900
 
 WORKDIR /packages/tools
 COPY packages/tools .
@@ -36,6 +37,8 @@ COPY config .
 RUN chmod +x ./mariadb.sh && ./mariadb.sh
 RUN chmod +x ./apache2.sh && ./apache2.sh
 RUN chmod +x ./wildfly.sh && ./wildfly.sh
+RUN chmod +x ./sigma.sh && ./sigma.sh
+RUN chmod +x ./wars.sh && ./wars.sh
 
 CMD ["bash"]
 
