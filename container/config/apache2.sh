@@ -39,7 +39,6 @@ configure() {
     a2enmod proxy_wstunnel proxy_http proxy_html proxy_ajp
     a2enmod rewrite
     
-    printf "${file}"
     getfromcode /apache2/${file[2]}
     getfromcode /apache2/${file[3]}
     mv /tmp/apache2/${file[2]} /etc/apache2/sites-available
