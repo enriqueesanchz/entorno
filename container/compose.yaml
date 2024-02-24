@@ -4,3 +4,19 @@ services:
     ports: 
       - "5900:5900"
     command: "x11vnc -create -forever"
+    volumes:
+      - home_sigma:/home/sigma
+      - apache2:/etc/apache2
+      - etc_mysql:/etc/mysql
+      - var_mysql:/var/lib/mysql
+      - etc_sigma:/etc/sigma
+      - deployments:/opt/wildfly/standalone/deployments
+      - conf_wildfly:/opt/wildfly/standalone/configuration
+volumes:
+  home_sigma:
+  apache2:
+  etc_mysql:
+  var_mysql:
+  etc_sigma:
+  deployments:
+  conf_wildfly:
