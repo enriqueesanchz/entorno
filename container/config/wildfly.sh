@@ -17,6 +17,8 @@ INSTALLDIR="/opt"
 CLI="$INSTALLDIR/${package}/bin/jboss-cli.sh --connect controller=127.0.0.1"
 
 configure() {
+    service mysql restart
+
     echo JAVA_OPTS=\"-Xms64m -Xmx1024m -XX:+UseG1GC -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=512m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true\" >> /opt/wildfly/bin/standalone.conf
 
     "/opt/${package}/bin/standalone.sh" > /dev/null 2>&1 &

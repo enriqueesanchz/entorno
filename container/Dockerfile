@@ -34,6 +34,7 @@ RUN chmod +x ./wildfly.sh && ./wildfly.sh
 
 WORKDIR /config
 COPY config .
+COPY RelayMap.txt /home/sigma/
 RUN chmod +x ./mariadb.sh && ./mariadb.sh
 RUN chmod +x ./apache2.sh && ./apache2.sh
 RUN chmod +x ./wildfly.sh && ./wildfly.sh
