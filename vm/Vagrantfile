@@ -29,14 +29,14 @@ Vagrant.configure(2) do |config|
   # # Port forwarding — uncomment this to use NAT instead of DHCP
   # config.vm.network "forwarded_port", guest: 80, host: VM_PORT
   # Sync folder
-  config.vm.synced_folder HOST_PATH, GUEST_PATH
+  #config.vm.synced_folder HOST_PATH, GUEST_PATH
   if Vagrant.has_plugin?("vagrant-vbguest") then
         config.vbguest.auto_update = false
   end
   # Disable default Vagrant folder, use a unique path per project
-  config.vm.synced_folder '.', '/home/'+VM_USER+'', disabled: true
+  #config.vm.synced_folder '.', '/home/'+VM_USER+'', disabled: true
   # Install sigma
-  config.vm.provision "shell", path: "initwildfly.sh"
+  config.vm.provision "shell", path: "run.sh"
 end
 
 
