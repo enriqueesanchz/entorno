@@ -1,6 +1,6 @@
 FROM debian:10-slim
 
-RUN apt -y update && apt -y upgrade
+RUN apt-get -y update && apt-get -y upgrade
 
 WORKDIR /packages/base
 COPY packages/base . 
