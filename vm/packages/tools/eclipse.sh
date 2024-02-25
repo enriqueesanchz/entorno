@@ -11,7 +11,7 @@ url='https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloa
 
 install() {
     wget ${url} -O /tmp/${package}.tar.gz
-    tar -xzvf /tmp/${package}.tar.gz -C /opt
+    tar -xzf /tmp/${package}.tar.gz -C /opt
     chmod +x /opt/eclipse/eclipse
 }
 
