@@ -9,7 +9,7 @@ export DEBIAN_FRONTEND=noninteractive
 package="wget"
 
 install() {
-    apt-get -y install ${package}
+    apt-get -y install --no-install-recommends ${package}
 }
 
 clean() {

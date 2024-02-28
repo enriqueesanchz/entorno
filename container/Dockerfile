@@ -4,7 +4,7 @@ RUN apt-get -y update && apt-get -y upgrade
 
 WORKDIR /packages/base
 COPY packages/base . 
-RUN chmod +x ./curl.sh && ./curl.sh
+#RUN chmod +x ./curl.sh && ./curl.sh
 RUN chmod +x ./wget.sh && ./wget.sh
 RUN chmod +x ./git.sh && ./git.sh
 RUN chmod +x ./unzip.sh && ./unzip.sh
