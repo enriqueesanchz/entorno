@@ -9,27 +9,14 @@ export DEBIAN_FRONTEND=noninteractive
 package="sigma"
 
 # Config
-db="sigma"
-dbuser="sigma"
-dbpass="sigmadb"
 file="sigmatree.tgz"
 
-# Aux function
-getfromcode()
-{
-    wget --quiet --user ${dbuser} --password ${dbpass} -N "https://everest.us.es/code/$1" -O "/tmp/$1"
-}
-
 # Config
-
 configure() {
-    getfromcode ${file}
-    tar zxf /tmp/sigmatree.tgz -C /
+    tar zxf /tmp/default/etc/sigma/sigmatree.tgz -C /
 }
 
-clean() {
-    rm /tmp/${file}
-}
+clean() { :;}
 
 remove() { :; }
 

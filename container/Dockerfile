@@ -4,7 +4,6 @@ RUN apt-get -y update && apt-get -y upgrade
 
 WORKDIR /packages/base
 COPY packages/base . 
-#RUN chmod +x ./curl.sh && ./curl.sh
 RUN chmod +x ./wget.sh && ./wget.sh
 RUN chmod +x ./git.sh && ./git.sh
 RUN chmod +x ./unzip.sh && ./unzip.sh
@@ -35,6 +34,9 @@ RUN chmod +x ./wildfly.sh && ./wildfly.sh
 WORKDIR /config
 COPY config .
 COPY RelayMap.txt /home/sigma/
+
+COPY default /tmp/default
+
 RUN chmod +x ./mariadb.sh && ./mariadb.sh
 RUN chmod +x ./apache2.sh && ./apache2.sh
 RUN chmod +x ./wildfly.sh && ./wildfly.sh
