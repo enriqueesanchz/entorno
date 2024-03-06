@@ -27,7 +27,7 @@ trap clean EXIT
 
 main() {
     install
-    printf "[binary] Succesfully installed ${package}"
+    printf "[binary] Succesfully installed ${package}\n"
 }
 
 main

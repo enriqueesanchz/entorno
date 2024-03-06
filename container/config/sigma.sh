@@ -24,7 +24,7 @@ trap clean EXIT
 
 main() {
     configure
-    printf "[${package}] Succesfully configured"
+    printf "[${package}] Succesfully configured\n"
 }
 
 main

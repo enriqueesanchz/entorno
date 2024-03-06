@@ -24,7 +24,7 @@ trap clean EXIT
 
 main() {
     install
-    printf "[apt-get] Succesfully installed ${package}"
+    printf "[apt-get] Succesfully installed ${package}\n"
 }
 
 main
