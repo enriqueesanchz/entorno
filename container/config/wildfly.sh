@@ -9,9 +9,6 @@ export DEBIAN_FRONTEND=noninteractive
 package="wildfly"
 
 # Config
-db=sigma
-dbuser=sigma
-dbpass=sigmadb
 url='https://downloads.mariadb.com/Connectors/java/connector-java-2.6.2/mariadb-java-client-2.6.2.jar'
 INSTALLDIR="/opt"
 CLI="$INSTALLDIR/${package}/bin/jboss-cli.sh --connect controller=127.0.0.1"

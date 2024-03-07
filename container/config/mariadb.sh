@@ -9,9 +9,6 @@ export DEBIAN_FRONTEND=noninteractive
 package="mariadb-server"
 
 # Config
-db="sigma"
-dbuser="sigma"
-dbpass="sigmadb"
 file="${db}_desarrollo.sql.bzip2"
 
 configure() {

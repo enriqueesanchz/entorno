@@ -31,5 +31,8 @@ Thumbs.db
 # Logs
 *.log
 
+# Env
+.env
+
 # Default config
 default

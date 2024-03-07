@@ -31,6 +31,14 @@ RUN chmod +x ./apache2.sh && ./apache2.sh
 RUN chmod +x ./mariadb-server.sh && ./mariadb-server.sh
 RUN chmod +x ./wildfly.sh && ./wildfly.sh
 
+ARG db
+ARG dbuser
+ARG dbpass
+
+ENV db $db
+ENV dbuser $dbuser
+ENV dbpass $dbpass
+
 WORKDIR /config
 COPY config .
 COPY RelayMap.txt /home/sigma/
