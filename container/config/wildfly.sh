@@ -9,9 +9,9 @@ export DEBIAN_FRONTEND=noninteractive
 package="wildfly"
 
 # Config
-DB=sigma
-DBUSER=sigma
-DBPASS=sigmadb
+db=sigma
+dbuser=sigma
+dbpass=sigmadb
 url='https://downloads.mariadb.com/Connectors/java/connector-java-2.6.2/mariadb-java-client-2.6.2.jar'
 INSTALLDIR="/opt"
 CLI="$INSTALLDIR/${package}/bin/jboss-cli.sh --connect controller=127.0.0.1"
@@ -23,13 +23,13 @@ configure() {
 
     "/opt/${package}/bin/standalone.sh" > /dev/null 2>&1 &
     sleep 5 # TODO: revisar cuando se arranca el proceso
-    "/opt/${package}/bin/add-user.sh" -u admin -p admin -g PowerUser,BillingAdmin, -e
+    "/opt/${package}/bin/add-user.sh" -u admin -p admin -g PowerUser,BillingAdmin, -e # TODO: variable entorno
 
     # Deploy mariadb connector
     wget ${url} -O "/tmp/mariadb-java-client-2.6.2.jar"
     $CLI --commands="deploy /tmp/mariadb-java-client-2.6.2.jar --name=mariadb --runtime-name=mariadb-java-client-2.6.2.jar"
-    $CLI --commands="data-source add --jndi-name=java:/sigma/datasource --name=sigmadb --connection-url=jdbc:mysql://127.0.0.1:3306/$DB --driver-class=org.mariad\
-b.jdbc.Driver --driver-name=mariadb-java-client-2.6.2.jar --user-name=$DBUSER --password=$DBPASS --statistics-enabled --background-validation --valid-connection-checker-class-n\
+    $CLI --commands="data-source add --jndi-name=java:/sigma/datasource --name=sigmadb --connection-url=jdbc:mysql://127.0.0.1:3306/${db} --driver-class=org.mariad\
+b.jdbc.Driver --driver-name=mariadb-java-client-2.6.2.jar --user-name=${dbuser} --password=${dbpass} --statistics-enabled --background-validation --valid-connection-checker-class-n\
 ame=org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker --exception-sorter-class-name=org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter"
     $CLI --command='/system-property=sigma.base:add(value=bar)'
     $CLI --command='/system-property=sigma.base:write-attribute(name="value",value="/etc/sigma")'
