@@ -9,5 +9,6 @@ services:
         - wild_user=${wild_user}
         - wild_password=${wild_password}
     ports: 
-      - "5900:5900"
+      - "5900:5900" # vnc server
+      - "25:25" # email server
     command: "x11vnc -create -forever"
