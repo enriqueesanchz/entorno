@@ -55,5 +55,7 @@ RUN chmod +x ./wildfly.sh && ./wildfly.sh
 RUN chmod +x ./sigma.sh && ./sigma.sh
 RUN chmod +x ./wars.sh && ./wars.sh
 
+RUN rm -rf /tmp/static
+
 CMD ["bash"]
 

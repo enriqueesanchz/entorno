@@ -25,6 +25,7 @@ EOF
 
 clean() {
     service mysql stop
+    rm -rf /tmp/static/mariadb
 }
 
 remove() { :; }

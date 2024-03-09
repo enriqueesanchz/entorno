@@ -28,6 +28,8 @@ configure() {
 
 clean() {
     service apache2 stop
+    rm -rf /tmp/static/home/sigma
+    rm -rf /tmp/static/apache2
 }
 
 remove() { :; }

@@ -16,7 +16,9 @@ configure() {
     tar zxf /tmp/static/etc/sigma/sigmatree.tgz -C /
 }
 
-clean() { :;}
+clean() { 
+    rm -rf /tmp/static/etc/sigma
+}
 
 remove() { :; }
 
