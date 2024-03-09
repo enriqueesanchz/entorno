@@ -34,10 +34,14 @@ RUN chmod +x ./wildfly.sh && ./wildfly.sh
 ARG db
 ARG dbuser
 ARG dbpass
+ARG wild_user
+ARG wild_password
 
 ENV db $db
 ENV dbuser $dbuser
 ENV dbpass $dbpass
+ENV wild_user $wild_user
+ENV wild_password $wild_password
 
 WORKDIR /config
 COPY config .

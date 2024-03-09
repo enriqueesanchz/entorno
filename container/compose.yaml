@@ -6,6 +6,8 @@ services:
         - db=${db}
         - dbuser=${dbuser}
         - dbpass=${dbpass}
+        - wild_user=${wild_user}
+        - wild_password=${wild_password}
     ports: 
       - "5900:5900"
     command: "x11vnc -create -forever"

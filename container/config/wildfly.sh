@@ -20,7 +20,7 @@ configure() {
 
     "/opt/${package}/bin/standalone.sh" > /dev/null 2>&1 &
     sleep 5 # TODO: revisar cuando se arranca el proceso
-    "/opt/${package}/bin/add-user.sh" -u admin -p admin -g PowerUser,BillingAdmin, -e # TODO: variable entorno
+    "/opt/${package}/bin/add-user.sh" -u ${wild_user} -p ${wild_password} -g PowerUser,BillingAdmin, -e
 
     # Deploy mariadb connector
     wget ${url} -O "/tmp/mariadb-java-client-2.6.2.jar"
