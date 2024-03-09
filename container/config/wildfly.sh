@@ -16,13 +16,18 @@ CLI="$INSTALLDIR/${package}/bin/jboss-cli.sh --connect controller=127.0.0.1"
 configure() {
     service mysql restart
 
+    printf "[mariadb] wait until init"
+    until mysqladmin ping >/dev/null 2>&1; do
+        echo -n "."; sleep 1
+    done
+    
     echo JAVA_OPTS=\"-Xms64m -Xmx1024m -XX:+UseG1GC -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=512m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true\" >> /opt/wildfly/bin/standalone.conf
 
     "/opt/${package}/bin/standalone.sh" > /var/log/wildfly.log 2>&1 &
 
-    # wait until wildfly init
+    printf "[wildfly] wait until init"
     until grep -q 'WFLYSRV0025' /var/log/wildfly.log; do
-        sleep 1
+        echo -n "."; sleep 1
     done
 
     "/opt/${package}/bin/add-user.sh" -u ${wild_user} -p ${wild_password} -g PowerUser,BillingAdmin, -e
@@ -42,11 +47,10 @@ ame=org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker --e
     
     $CLI -c --commands=":shutdown(restart=true)"
 
-    # wait until wildfly restarted
+    printf "[wildfly] wait until restart"
     truncate -s 0 /var/log/wildfly.log
     until grep -q 'WFLYSRV0025' /var/log/wildfly.log; do
-        sleep 1
-        echo 'waiting' >> /var/log/restarted
+        echo -n "."; sleep 1
     done
 
     $CLI --command='/subsystem=elytron/policy=jacc:add(jacc-policy={})'
