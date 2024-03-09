@@ -16,19 +16,22 @@ CLI="$INSTALLDIR/${package}/bin/jboss-cli.sh --connect controller=127.0.0.1"
 configure() {
     service mysql restart
 
-    printf "[mariadb] wait until init"
+    printf "[mariadb] waiting init"
     until mysqladmin ping >/dev/null 2>&1; do
         echo -n "."; sleep 1
     done
+    printf "\n"
     
     echo JAVA_OPTS=\"-Xms64m -Xmx1024m -XX:+UseG1GC -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=512m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true\" >> /opt/wildfly/bin/standalone.conf
 
     "/opt/${package}/bin/standalone.sh" > /var/log/wildfly.log 2>&1 &
+    wild_pid=$!
 
-    printf "[wildfly] wait until init"
+    printf "[wildfly] waiting init"
     until grep -q 'WFLYSRV0025' /var/log/wildfly.log; do
         echo -n "."; sleep 1
     done
+    printf "\n"
 
     "/opt/${package}/bin/add-user.sh" -u ${wild_user} -p ${wild_password} -g PowerUser,BillingAdmin, -e
 
@@ -47,11 +50,12 @@ ame=org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker --e
     
     $CLI -c --commands=":shutdown(restart=true)"
 
-    printf "[wildfly] wait until restart"
+    printf "[wildfly] waiting restart"
     truncate -s 0 /var/log/wildfly.log
     until grep -q 'WFLYSRV0025' /var/log/wildfly.log; do
         echo -n "."; sleep 1
     done
+    printf "\n"
 
     $CLI --command='/subsystem=elytron/policy=jacc:add(jacc-policy={})'
     $CLI --command='/subsystem=undertow/application-security-domain=other:add(security-domain=ApplicationDomain,integrated-jaspi=false)'
@@ -73,6 +77,10 @@ ame=org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker --e
 
 clean() {
     $CLI -c --commands=":shutdown"
+
+    printf "[wildfly] waiting shutdown\n"
+    wait $wild_pid
+
     rm "/tmp/mariadb-java-client-2.6.2.jar"
 }
 
