@@ -45,16 +45,12 @@ ENV wild_password $wild_password
 
 WORKDIR /config
 COPY config .
-COPY RelayMap.txt /home/sigma/
-
 COPY static /tmp/static
-
 RUN chmod +x ./mariadb.sh && ./mariadb.sh
 RUN chmod +x ./apache2.sh && ./apache2.sh
 RUN chmod +x ./wildfly.sh && ./wildfly.sh
 RUN chmod +x ./sigma.sh && ./sigma.sh
 RUN chmod +x ./wars.sh && ./wars.sh
-
 RUN rm -rf /tmp/static
 
 CMD ["bash"]
