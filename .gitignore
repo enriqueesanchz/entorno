@@ -34,5 +34,8 @@ Thumbs.db
 # Env
 .env
 
+# Static files
+static
+
 # Default config
 default

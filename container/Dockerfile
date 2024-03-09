@@ -47,7 +47,7 @@ WORKDIR /config
 COPY config .
 COPY RelayMap.txt /home/sigma/
 
-COPY default /tmp/default
+COPY static /tmp/static
 
 RUN chmod +x ./mariadb.sh && ./mariadb.sh
 RUN chmod +x ./apache2.sh && ./apache2.sh

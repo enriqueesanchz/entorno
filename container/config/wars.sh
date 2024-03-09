@@ -19,15 +19,15 @@ dodeploy ()
 configure() {
     mkdir /war
 
-    for war in $(ls /tmp/default/war)
+    for war in $(ls /tmp/static/war)
     do
-        mv /tmp/default/war/${war} /war/
+        mv /tmp/static/war/${war} /war/
         dodeploy ${war}
     done
 }
 
 clean() {
-    for war in $(ls /tmp/default/war)
+    for war in $(ls /tmp/static/war)
     do
         rm /war/${war}
     done

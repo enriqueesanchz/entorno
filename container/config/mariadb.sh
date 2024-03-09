@@ -20,7 +20,7 @@ CREATE USER '${dbuser}'@'localhost' IDENTIFIED BY '${dbpass}';
 GRANT ALL PRIVILEGES ON ${db}.* TO '${dbuser}'@'localhost';                                   
 EOF
 
-    bzip2 -c -d /tmp/default/mariadb/${file} | mysql ${db}
+    bzip2 -c -d /tmp/static/mariadb/${file} | mysql ${db}
 }
 
 clean() {
