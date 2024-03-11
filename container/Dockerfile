@@ -53,5 +53,8 @@ RUN chmod +x ./sigma.sh && ./sigma.sh
 RUN chmod +x ./wars.sh && ./wars.sh
 RUN rm -rf /tmp/static
 
-CMD ["bash"]
+COPY entrypoint.sh /opt/
+RUN chmod +x /opt/entrypoint.sh
+
+CMD ["/opt/entrypoint.sh"]
 

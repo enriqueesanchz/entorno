@@ -18,6 +18,9 @@ configure() {
 
 clean() { 
     rm -rf /tmp/static/etc/sigma
+
+    mkdir -p /default/etc/sigma
+    cp -r /etc/sigma /default/etc/
 }
 
 remove() { :; }

@@ -11,4 +11,9 @@ services:
     ports: 
       - "5900:5900" # vnc server
       - "25:25" # email server
-    command: "x11vnc -create -forever"
+    volumes:
+      - ./volumes/opt/wildfly/standalone:/opt/wildfly/standalone
+      - ./volumes/etc/apache2:/etc/apache2
+      - ./volumes/etc/sigma:/etc/sigma
+      - ./volumes/home/sigma:/home/sigma
+      - ./volumes/var/lib/mysql:/var/lib/mysql

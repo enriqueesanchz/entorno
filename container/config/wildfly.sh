@@ -82,6 +82,9 @@ clean() {
     wait $wild_pid
 
     rm "/tmp/mariadb-java-client-2.6.2.jar"
+
+    mkdir -p /default/opt/wildfly/standalone
+    cp -r /opt/wildfly/standalone /default/opt/wildfly/
 }
 
 remove() { :; }

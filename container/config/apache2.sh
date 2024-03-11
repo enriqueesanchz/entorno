@@ -30,6 +30,11 @@ clean() {
     service apache2 stop
     rm -rf /tmp/static/home/sigma
     rm -rf /tmp/static/apache2
+
+    mkdir -p /default/home/sigma
+    mkdir -p /default/etc/apache2
+    cp -r /home/sigma /default/home/
+    cp -r /etc/apache2 /default/etc/
 }
 
 remove() { :; }

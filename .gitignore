@@ -39,3 +39,6 @@ static
 
 # Default config
 default
+
+# Docker volumes
+volumes
