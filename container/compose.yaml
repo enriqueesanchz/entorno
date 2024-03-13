@@ -8,6 +8,8 @@ services:
         - dbpass=${dbpass}
         - wild_user=${wild_user}
         - wild_password=${wild_password}
+        - vpn_user=${vpn_user}
+        - vpn_password=${vpn_password}
     ports: 
       - "5900:5900" # vnc server
       - "25:25" # email server
@@ -17,3 +19,5 @@ services:
       - ./volumes/etc/sigma:/etc/sigma
       - ./volumes/home/sigma:/home/sigma
       - ./volumes/var/lib/mysql:/var/lib/mysql
+      - ./volumes/etc/openfortivpn:/etc/openfortivpn
+

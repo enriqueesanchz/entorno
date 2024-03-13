@@ -13,7 +13,8 @@ dirs=("/opt/wildfly/standalone"
     "/etc/apache2"
     "/etc/sigma"
     "/home/sigma"
-    "/var/lib/mysql")
+    "/var/lib/mysql"
+    "/etc/openfortivpn/")
 
 for dir in "${dirs[@]}"; do
     if [ -z "$(ls -A ${dir})" ]; then

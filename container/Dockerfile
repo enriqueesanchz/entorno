@@ -36,12 +36,16 @@ ARG dbuser
 ARG dbpass
 ARG wild_user
 ARG wild_password
+ARG vpn_user
+ARG vpn_password
 
 ENV db $db
 ENV dbuser $dbuser
 ENV dbpass $dbpass
 ENV wild_user $wild_user
 ENV wild_password $wild_password
+ENV vpn_user $vpn_user
+ENV vpn_password $vpn_password
 
 WORKDIR /config
 COPY config .
@@ -51,6 +55,7 @@ RUN chmod +x ./apache2.sh && ./apache2.sh
 RUN chmod +x ./wildfly.sh && ./wildfly.sh
 RUN chmod +x ./sigma.sh && ./sigma.sh
 RUN chmod +x ./wars.sh && ./wars.sh
+RUN chmod +x ./openfortivpn.sh && ./openfortivpn.sh
 RUN rm -rf /tmp/static
 
 COPY entrypoint.sh /opt/
