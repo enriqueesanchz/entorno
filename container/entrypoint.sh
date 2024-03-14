@@ -25,5 +25,8 @@ for dir in "${dirs[@]}"; do
     fi
 done
 
+# mysql permission
+chown -R mysql:mysql /var/lib/mysql
+
 x11vnc -create -forever
 
