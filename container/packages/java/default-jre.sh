@@ -9,7 +9,7 @@ export DEBIAN_FRONTEND=noninteractive
 package="default-jre"
 
 install() {
-    apt-get -y install --no-install-recommends ${package}
+    apt-get -y install ${package}
 }
 
 clean() {
