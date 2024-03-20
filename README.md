@@ -10,8 +10,6 @@ Parte de los problemas que surgen en un equipo de desarrollo que trabaja sobre u
 
 Con este trabajo se propone un entorno de desarrollo definido mediante código (EaC). Esto permite llevar un control de versiones de dicho código, y en consecuencia, del entorno.
 
----
-
 ## 2 alternativas
 
 ### Máquina vitual
@@ -21,8 +19,6 @@ En un principio se exploró esta opción ya que permite montar un entorno automa
 ### Contenedor
 
 Esta es la opción escogida. Permite crear contenedores efímeros que contengan la arquitectura completa necesaria para trabajar. Cuando queramos modificar esta arquitectura lo haremos mediante el Dockerfile y los scripts de instalación/configuración. Estos estarán versionados.
-
----
 
 ## Componentes
 
@@ -104,8 +100,6 @@ Siguen las mismas buenas prácticas que los scripts de instalación pero se enca
 Los ficheros estáticos se encuentran en la carpeta ./static, la cual no está subida al repositorio Git debido a que el control de versiones tradicional no está hecho para subir archivos de gran tamaño.
 
 - Plantear sistema de versiones mendiante hash para garantizar consistencia
-
----
 
 ## Caché de docker
 
