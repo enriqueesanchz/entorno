@@ -24,6 +24,7 @@ WORKDIR /packages/tools
 COPY packages/tools .
 RUN chmod +x ./openfortivpn.sh && ./openfortivpn.sh
 RUN chmod +x ./eclipse.sh && ./eclipse.sh
+RUN chmod +x ./firefox.sh && ./firefox.sh
 
 WORKDIR /packages/server
 COPY packages/server .
@@ -46,6 +47,9 @@ ENV wild_user $wild_user
 ENV wild_password $wild_password
 ENV vpn_user $vpn_user
 ENV vpn_password $vpn_password
+
+# wildfly in PATH
+ENV PATH $PATH:/opt/wildfly/bin/
 
 WORKDIR /config
 COPY config .

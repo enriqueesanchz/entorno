@@ -13,6 +13,9 @@ install() {
     wget ${url} -O /tmp/${package}.tar.gz
     tar -xzf /tmp/${package}.tar.gz -C /opt
     chmod +x /opt/eclipse/eclipse
+
+    # eclipse in PATH
+    ln -s /opt/eclipse/eclipse /usr/bin/eclipse
 }
 
 clean() {
