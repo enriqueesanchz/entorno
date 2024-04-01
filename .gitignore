@@ -15,6 +15,7 @@
 *.rar
 *.tar
 *.zip
+*.tar.gz
 
 # OS generated files
 .DS_Store

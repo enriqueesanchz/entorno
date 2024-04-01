@@ -13,12 +13,10 @@ file="sigmatree.tgz"
 
 # Config
 configure() {
-    tar zxf /tmp/static/etc/sigma/sigmatree.tgz -C /
+    tar xzf /static.tar.gz -C / ./etc/sigma
 }
 
 clean() { 
-    rm -rf /tmp/static/etc/sigma
-
     mkdir -p /default/etc/sigma
     cp -r /etc/sigma /default/etc/
 }

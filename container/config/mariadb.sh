@@ -20,12 +20,14 @@ CREATE USER '${dbuser}'@'localhost' IDENTIFIED BY '${dbpass}';
 GRANT ALL PRIVILEGES ON ${db}.* TO '${dbuser}'@'localhost';                                   
 EOF
 
-    bzip2 -c -d /tmp/static/mariadb/${file} | mysql ${db}
+    tar xzf /static.tar.gz ./mariadb
+    bzip2 -c -d mariadb/${file} | mysql ${db}
 }
 
 clean() {
     service mysql stop
-    rm -rf /tmp/static/mariadb
+
+    rm -rf mariadb
 
     mkdir -p /default/var/lib/mysql
     cp -r /var/lib/mysql /default/var/lib/

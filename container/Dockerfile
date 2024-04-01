@@ -49,13 +49,12 @@ ENV vpn_password $vpn_password
 
 WORKDIR /config
 COPY config .
-COPY static /tmp/static
+COPY static.tar.gz /
 RUN chmod +x ./mariadb.sh && ./mariadb.sh
 RUN chmod +x ./apache2.sh && ./apache2.sh
 RUN chmod +x ./wildfly.sh && ./wildfly.sh
 RUN chmod +x ./sigma.sh && ./sigma.sh
 RUN chmod +x ./openfortivpn.sh && ./openfortivpn.sh
-# eliminar RUN rm -rf /tmp/static
 
 COPY entrypoint.sh /opt/
 RUN chmod +x /opt/entrypoint.sh
