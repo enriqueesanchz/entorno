@@ -54,9 +54,8 @@ RUN chmod +x ./mariadb.sh && ./mariadb.sh
 RUN chmod +x ./apache2.sh && ./apache2.sh
 RUN chmod +x ./wildfly.sh && ./wildfly.sh
 RUN chmod +x ./sigma.sh && ./sigma.sh
-RUN chmod +x ./wars.sh && ./wars.sh
 RUN chmod +x ./openfortivpn.sh && ./openfortivpn.sh
-RUN rm -rf /tmp/static
+# eliminar RUN rm -rf /tmp/static
 
 COPY entrypoint.sh /opt/
 RUN chmod +x /opt/entrypoint.sh
