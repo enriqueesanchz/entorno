@@ -1,8 +1,7 @@
 #!/bin/bash
 
+# Strict mode
 set -euo pipefail
-
-export DEBIAN_FRONTEND=noninteractive
 
 # Para acceder a la configuracion desde el host:
 # 1. Persistir una config default en /default

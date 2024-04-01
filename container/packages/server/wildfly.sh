@@ -3,8 +3,6 @@
 # Strict mode
 set -euo pipefail
 
-export DEBIAN_FRONTEND=noninteractive
-
 # Package name
 package="wildfly"
 version="23.0.2.Final"
