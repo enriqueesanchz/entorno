@@ -63,7 +63,6 @@ COPY static.tar.gz /
 RUN chmod +x ./mariadb.sh && ./mariadb.sh
 RUN chmod +x ./apache2.sh && ./apache2.sh
 RUN chmod +x ./wildfly.sh && ./wildfly.sh
-RUN chmod +x ./sigma.sh && ./sigma.sh
 RUN chmod +x ./openfortivpn.sh && ./openfortivpn.sh
 RUN chmod +x ./tigervncserver.sh && ./tigervncserver.sh
 

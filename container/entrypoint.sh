@@ -10,7 +10,6 @@ set -euo pipefail
 
 dirs=("/opt/wildfly/standalone"
     "/etc/apache2"
-    "/etc/sigma"
     "/home/sigma"
     "/var/lib/mysql"
     "/etc/openfortivpn/")

@@ -18,7 +18,6 @@ services:
     volumes:
       - ./volumes/opt/wildfly/standalone:/opt/wildfly/standalone
       - ./volumes/etc/apache2:/etc/apache2
-      - ./volumes/etc/sigma:/etc/sigma
       - ./volumes/home/sigma:/home/sigma
       - ./volumes/var/lib/mysql:/var/lib/mysql
       - ./volumes/etc/openfortivpn:/etc/openfortivpn
