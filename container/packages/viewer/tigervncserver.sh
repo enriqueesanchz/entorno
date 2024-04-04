@@ -4,7 +4,7 @@
 set -euo pipefail
 
 # Package name
-package="x11vnc"
+package="tigervnc-standalone-server"
 
 install() {
     apt-get -y install ${package}

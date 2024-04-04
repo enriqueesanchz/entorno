@@ -27,5 +27,5 @@ done
 # mysql permission
 chown -R mysql:mysql /var/lib/mysql
 
-x11vnc -create -forever
+vncserver -localhost no -fg
 

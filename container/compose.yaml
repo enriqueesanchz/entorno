@@ -10,8 +10,10 @@ services:
         - wild_password=${wild_password}
         - vpn_user=${vpn_user}
         - vpn_password=${vpn_password}
+        - USER=${USER}
+        - PASSWORD=${PASSWORD}
     ports: 
-      - "5900:5900" # vnc server
+      - "5901:5901" # vnc server
       - "25:25" # email server
     volumes:
       - ./volumes/opt/wildfly/standalone:/opt/wildfly/standalone

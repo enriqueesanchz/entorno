@@ -17,9 +17,10 @@ RUN chmod +x ./maven.sh && ./maven.sh
 
 WORKDIR /packages/viewer
 COPY packages/viewer .
-RUN chmod +x ./x11vnc.sh && ./x11vnc.sh
+RUN apt-get install -y xfce4
+RUN chmod +x ./tigervncserver.sh && ./tigervncserver.sh
 RUN chmod +x ./xfvb.sh && ./xfvb.sh
-EXPOSE 5900
+EXPOSE 5901
 
 WORKDIR /packages/tools
 COPY packages/tools .
@@ -40,6 +41,8 @@ ARG wild_user
 ARG wild_password
 ARG vpn_user
 ARG vpn_password
+ARG USER
+ARG PASSWORD
 
 ENV db $db
 ENV dbuser $dbuser
@@ -48,6 +51,8 @@ ENV wild_user $wild_user
 ENV wild_password $wild_password
 ENV vpn_user $vpn_user
 ENV vpn_password $vpn_password
+ENV USER $USER
+ENV PASSWORD $PASSWORD
 
 # wildfly in PATH
 ENV PATH $PATH:/opt/wildfly/bin/
@@ -60,6 +65,7 @@ RUN chmod +x ./apache2.sh && ./apache2.sh
 RUN chmod +x ./wildfly.sh && ./wildfly.sh
 RUN chmod +x ./sigma.sh && ./sigma.sh
 RUN chmod +x ./openfortivpn.sh && ./openfortivpn.sh
+RUN chmod +x ./tigervncserver.sh && ./tigervncserver.sh
 
 COPY entrypoint.sh /opt/
 RUN chmod +x /opt/entrypoint.sh
