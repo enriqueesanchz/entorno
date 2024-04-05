@@ -23,6 +23,18 @@ for dir in "${dirs[@]}"; do
     fi
 done
 
+
+dirs=("/code")
+
+for dir in "${dirs[@]}"; do
+    if [ -z "$(ls -A ${dir})" ]; then
+        printf "${dir} vacio, clonando quickstart\n" 1>&2
+        git clone https://github.com/wildfly/quickstart.git /code/quickstart
+    else
+        printf "usando volumes${dir}\n" 1>&2
+    fi
+done
+
 # mysql permission
 chown -R mysql:mysql /var/lib/mysql
 

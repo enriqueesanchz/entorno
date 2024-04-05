@@ -54,9 +54,6 @@ ENV vpn_password $vpn_password
 ENV USER $USER
 ENV PASSWORD $PASSWORD
 
-# wildfly in PATH
-ENV PATH $PATH:/opt/wildfly/bin/
-
 WORKDIR /config
 COPY config .
 COPY static.tar.gz /
@@ -69,5 +66,6 @@ RUN chmod +x ./tigervncserver.sh && ./tigervncserver.sh
 COPY entrypoint.sh /opt/
 RUN chmod +x /opt/entrypoint.sh
 
+WORKDIR /root
 CMD ["/opt/entrypoint.sh"]
 
