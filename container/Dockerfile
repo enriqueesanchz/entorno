@@ -56,7 +56,7 @@ ENV PASSWORD $PASSWORD
 
 WORKDIR /config
 COPY config .
-COPY static.tar.gz /
+COPY static /
 
 RUN for file in $(ls *.sh); do chmod +x ${file} && ./${file}; done
 

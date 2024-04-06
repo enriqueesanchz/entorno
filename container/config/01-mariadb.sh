@@ -18,8 +18,7 @@ CREATE USER '${dbuser}'@'localhost' IDENTIFIED BY '${dbpass}';
 GRANT ALL PRIVILEGES ON ${db}.* TO '${dbuser}'@'localhost';                                   
 EOF
 
-    tar xzf /static.tar.gz ./mariadb
-    bzip2 -c -d mariadb/${file} | mysql ${db}
+    bzip2 -c -d /mariadb/${file} | mysql ${db}
 }
 
 clean() {
