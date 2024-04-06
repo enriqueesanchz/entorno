@@ -26,10 +26,6 @@ clean() {
     service mysql stop
 
     rm -rf mariadb
-
-    mkdir -p /default/var/lib/mysql
-    cp -r /var/lib/mysql /default/var/lib/
-    chown -R mysql:mysql /default/var/lib/mysql
 }
 
 remove() { :; }

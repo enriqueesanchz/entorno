@@ -21,5 +21,6 @@ services:
       - ./volumes/home/sigma:/home/sigma
       - ./volumes/var/lib/mysql:/var/lib/mysql
       - ./volumes/etc/openfortivpn:/etc/openfortivpn
+      - ./volumes/root/.vnc:/root/.vnc
       - ./volumes/code:/code
 

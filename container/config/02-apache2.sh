@@ -26,11 +26,6 @@ configure() {
 
 clean() {
     service apache2 stop
-
-    mkdir -p /default/home/sigma
-    mkdir -p /default/etc/apache2
-    cp -r /home/sigma /default/home/
-    cp -r /etc/apache2 /default/etc/
 }
 
 remove() { :; }

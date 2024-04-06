@@ -57,11 +57,8 @@ ENV PASSWORD $PASSWORD
 WORKDIR /config
 COPY config .
 COPY static.tar.gz /
-RUN chmod +x ./mariadb.sh && ./mariadb.sh
-RUN chmod +x ./apache2.sh && ./apache2.sh
-RUN chmod +x ./wildfly.sh && ./wildfly.sh
-RUN chmod +x ./openfortivpn.sh && ./openfortivpn.sh
-RUN chmod +x ./tigervncserver.sh && ./tigervncserver.sh
+
+RUN for file in $(ls *.sh); do chmod +x ${file} && ./${file}; done
 
 COPY entrypoint.sh /opt/
 RUN chmod +x /opt/entrypoint.sh

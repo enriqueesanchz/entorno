@@ -23,8 +23,6 @@ EOF
 
 clean() {
     rm /tmp/miconf
-    mkdir -p /default/etc/openfortivpn
-    cp /etc/openfortivpn/config /default/etc/openfortivpn
 }
 
 remove() { :; }
