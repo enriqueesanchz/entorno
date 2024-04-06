@@ -22,5 +22,6 @@ services:
       - ./volumes/var/lib/mysql:/var/lib/mysql
       - ./volumes/etc/openfortivpn:/etc/openfortivpn
       - ./volumes/root/.vnc:/root/.vnc
+      - ./volumes/root/.config/xfce4:/root/.config/xfce4
       - ./volumes/code:/code
 
