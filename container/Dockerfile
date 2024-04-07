@@ -1,35 +1,28 @@
 FROM debian:10-slim
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get -y update && apt-get -y upgrade
+RUN apt-get -y update && apt-get -y upgrade && \
+    apt-get install -y --no-install-recommends \
+    wget \
+    git \
+    unzip \
+    bzip2 \
+    default-jre \
+    maven \
+    tigervnc-standalone-server \
+    tigervnc-common \
+    openfortivpn \
+    firefox-esr && \
+    apt-get autoremove && apt-get clean
 
-WORKDIR /packages/base
-COPY packages/base . 
-RUN chmod +x ./wget.sh && ./wget.sh
-RUN chmod +x ./git.sh && ./git.sh
-RUN chmod +x ./unzip.sh && ./unzip.sh
-RUN chmod +x ./bzip2.sh && ./bzip2.sh
+RUN apt-get install -y xfce4 && \
+    apt-get autoremove && apt-get clean
 
-WORKDIR /packages/java
-COPY packages/java .
-RUN chmod +x ./default-jre.sh && ./default-jre.sh
-RUN chmod +x ./maven.sh && ./maven.sh
-
-WORKDIR /packages/viewer
-COPY packages/viewer .
-RUN apt-get install -y xfce4
-RUN chmod +x ./tigervncserver.sh && ./tigervncserver.sh
-RUN chmod +x ./xfvb.sh && ./xfvb.sh
 EXPOSE 5901
 
-WORKDIR /packages/tools
-COPY packages/tools .
-RUN chmod +x ./openfortivpn.sh && ./openfortivpn.sh
+WORKDIR /packages
+COPY packages .
 RUN chmod +x ./eclipse.sh && ./eclipse.sh
-RUN chmod +x ./firefox.sh && ./firefox.sh
-
-WORKDIR /packages/server
-COPY packages/server .
 RUN chmod +x ./apache2.sh && ./apache2.sh
 RUN chmod +x ./mariadb-server.sh && ./mariadb-server.sh
 RUN chmod +x ./wildfly.sh && ./wildfly.sh
@@ -54,10 +47,10 @@ ENV vpn_password $vpn_password
 ENV USER $USER
 ENV PASSWORD $PASSWORD
 
-WORKDIR /config
-COPY config .
 COPY static /
 
+WORKDIR /config
+COPY config .
 RUN for file in $(ls *.sh); do chmod +x ${file} && ./${file}; done
 
 COPY entrypoint.sh /opt/
