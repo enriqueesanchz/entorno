@@ -8,9 +8,9 @@ package="tightvncserver"
 
 # Config
 configure() {
-    mkdir ~/.vnc
-    echo ${PASSWORD} | vncpasswd -f > ~/.vnc/passwd
-    chmod 600 ~/.vnc/passwd
+    mkdir /home/sigma/.vnc
+    echo ${PASSWORD} | vncpasswd -f > /home/sigma/.vnc/passwd
+    chmod 600 /home/sigma/.vnc/passwd
 }
 
 clean() { 

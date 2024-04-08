@@ -12,13 +12,12 @@ dirs=("/opt/wildfly/standalone"
     "/etc/apache2"
     "/home/sigma"
     "/var/lib/mysql"
-    "/etc/openfortivpn/"
-    "/root/.vnc")
+    "/etc/openfortivpn/")
 
 for dir in "${dirs[@]}"; do
     if [ -z "$(ls -A ${dir})" ]; then
         printf "${dir} vacio, usando default\n" 1>&2
-        cp -rT /default${dir} ${dir} # -T: no crear directorio en destino
+        cp -rpT /default${dir} ${dir} # -T: no crear directorio en destino
     else
         printf "usando volumes${dir}\n" 1>&2
     fi
@@ -35,5 +34,5 @@ fi
 # mysql permission
 chown -R mysql:mysql /var/lib/mysql
 
-vncserver -localhost no -fg
+su - sigma -s /bin/bash -c "vncserver -localhost no -fg"
 

@@ -19,11 +19,9 @@ configure() {
 
     mv /etc/openfortivpn /default/etc/openfortivpn
 
+    chown -R sigma:sigma /home/sigma
     mkdir -p /default/home
     mv /home/sigma /default/home
-
-    mkdir /default/root
-    mv /root/.vnc /default/root
 }
 
 clean() { 

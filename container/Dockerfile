@@ -49,6 +49,8 @@ ENV PASSWORD $PASSWORD
 
 COPY static /
 
+RUN adduser sigma
+
 WORKDIR /config
 COPY config .
 RUN for file in $(ls *.sh); do chmod +x ${file} && ./${file}; done
@@ -56,6 +58,6 @@ RUN for file in $(ls *.sh); do chmod +x ${file} && ./${file}; done
 COPY entrypoint.sh /opt/
 RUN chmod +x /opt/entrypoint.sh
 
-WORKDIR /root
+WORKDIR /home/sigma
 CMD ["/opt/entrypoint.sh"]
 
