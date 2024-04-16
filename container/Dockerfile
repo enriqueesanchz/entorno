@@ -12,10 +12,11 @@ RUN apt-get -y update && apt-get -y upgrade && \
     tigervnc-standalone-server \
     tigervnc-common \
     openfortivpn \
-    firefox-esr && \
-    apt-get autoremove && apt-get clean
-
-RUN apt-get install -y xfce4 && \
+    firefox-esr \
+    xfce4 \
+    xfce4-terminal \
+    gvfs \
+    dbus-x11 && \
     apt-get autoremove && apt-get clean
 
 EXPOSE 5901
