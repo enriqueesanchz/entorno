@@ -2,6 +2,8 @@ FROM debian:10-slim
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get -y update && apt-get -y upgrade && \
+    echo "wireshark-common wireshark-common/install-setuid boolean true" | \
+    debconf-set-selections && \
     apt-get install -y --no-install-recommends \
     wget \
     git \
@@ -17,6 +19,7 @@ RUN apt-get -y update && apt-get -y upgrade && \
     xfce4-terminal \
     gvfs \
     dbus-x11 \
+    tshark \
     sudo && \
     apt-get autoremove && apt-get clean
 
@@ -51,7 +54,7 @@ ENV PASSWORD $PASSWORD
 
 COPY static /
 
-RUN adduser sigma && adduser sigma sudo
+RUN adduser sigma && adduser sigma sudo && adduser sigma wireshark
 
 WORKDIR /config
 COPY config .

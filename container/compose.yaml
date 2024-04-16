@@ -22,4 +22,7 @@ services:
       - ./volumes/var/lib/mysql:/var/lib/mysql
       - ./volumes/etc/openfortivpn:/etc/openfortivpn
       - ./volumes/code:/code
+    cap_add:
+      - "NET_ADMIN"
+      - "NET_RAW"
 
