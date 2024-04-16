@@ -1,8 +1,18 @@
 FROM debian:10-slim
-ARG DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get -y update && apt-get -y upgrade && \
-    echo "wireshark-common wireshark-common/install-setuid boolean true" | \
+ARG DEBIAN_FRONTEND=noninteractive
+ARG db
+ARG dbuser
+ARG dbpass
+ARG wild_user
+ARG wild_password
+ARG vpn_user
+ARG vpn_password
+ARG USER
+ARG PASSWORD
+
+RUN apt-get -y update && apt-get -y upgrade
+RUN echo "wireshark-common wireshark-common/install-setuid boolean true" | \
     debconf-set-selections && \
     apt-get install -y --no-install-recommends \
     wget \
@@ -19,6 +29,8 @@ RUN apt-get -y update && apt-get -y upgrade && \
     xfce4-terminal \
     gvfs \
     dbus-x11 \
+    mariadb-server \
+    apache2 \
     tshark \
     sudo && \
     apt-get autoremove && apt-get clean
@@ -28,29 +40,7 @@ EXPOSE 5901
 WORKDIR /packages
 COPY packages .
 RUN chmod +x ./eclipse.sh && ./eclipse.sh
-RUN chmod +x ./apache2.sh && ./apache2.sh
-RUN chmod +x ./mariadb-server.sh && ./mariadb-server.sh
 RUN chmod +x ./wildfly.sh && ./wildfly.sh
-
-ARG db
-ARG dbuser
-ARG dbpass
-ARG wild_user
-ARG wild_password
-ARG vpn_user
-ARG vpn_password
-ARG USER
-ARG PASSWORD
-
-ENV db $db
-ENV dbuser $dbuser
-ENV dbpass $dbpass
-ENV wild_user $wild_user
-ENV wild_password $wild_password
-ENV vpn_user $vpn_user
-ENV vpn_password $vpn_password
-ENV USER $USER
-ENV PASSWORD $PASSWORD
 
 COPY static /
 
