@@ -16,7 +16,8 @@ RUN apt-get -y update && apt-get -y upgrade && \
     xfce4 \
     xfce4-terminal \
     gvfs \
-    dbus-x11 && \
+    dbus-x11 \
+    sudo && \
     apt-get autoremove && apt-get clean
 
 EXPOSE 5901
@@ -50,7 +51,7 @@ ENV PASSWORD $PASSWORD
 
 COPY static /
 
-RUN adduser sigma
+RUN adduser sigma && adduser sigma sudo
 
 WORKDIR /config
 COPY config .
