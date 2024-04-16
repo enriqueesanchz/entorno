@@ -13,7 +13,7 @@ services:
         - USER=${USER}
         - PASSWORD=${PASSWORD}
     ports: 
-      - "5901:5901" # vnc server
+      - "6901:5901" # vnc server
       - "25:25" # email server
     volumes:
       - ./volumes/opt/wildfly/standalone:/opt/wildfly/standalone
