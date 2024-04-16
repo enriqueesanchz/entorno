@@ -11,8 +11,8 @@ ARG vpn_password
 ARG USER
 ARG PASSWORD
 
-RUN apt-get -y update && apt-get -y upgrade
-RUN echo "wireshark-common wireshark-common/install-setuid boolean true" | \
+RUN apt-get -y update && apt-get -y upgrade && \
+    echo "wireshark-common wireshark-common/install-setuid boolean true" | \
     debconf-set-selections && \
     apt-get install -y --no-install-recommends \
     wget \
@@ -33,14 +33,15 @@ RUN echo "wireshark-common wireshark-common/install-setuid boolean true" | \
     apache2 \
     tshark \
     sudo && \
-    apt-get autoremove && apt-get clean
+    apt-get autoremove && apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 5901
 
 WORKDIR /packages
 COPY packages .
-RUN chmod +x ./eclipse.sh && ./eclipse.sh
-RUN chmod +x ./wildfly.sh && ./wildfly.sh
+RUN chmod +x ./eclipse.sh && ./eclipse.sh && \
+    chmod +x ./wildfly.sh && ./wildfly.sh
 
 COPY static /
 
