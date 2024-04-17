@@ -6,8 +6,6 @@ ARG dbuser
 ARG dbpass
 ARG wild_user
 ARG wild_password
-ARG vpn_user
-ARG vpn_password
 ARG USER
 ARG PASSWORD
 
