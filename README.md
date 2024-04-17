@@ -20,6 +20,65 @@ En un principio se exploró esta opción ya que permite montar un entorno automa
 
 Esta es la opción escogida. Permite crear contenedores efímeros que contengan la arquitectura completa necesaria para trabajar. Cuando queramos modificar esta arquitectura lo haremos mediante el Dockerfile y los scripts de instalación/configuración. Estos estarán versionados.
 
+## Instrucciones
+
+### Build
+
+- ARGS
+  - db: nombre de la base de datos
+  - dbuser: usuario de la base de datos
+  - dbpass: contraseña de la base de datos
+  - wild_user: usuario administrador de wildfly
+  - wild_password: contraseña de administrador de wildfly
+  - USER: usuario para acceder mendiante vnc
+  - PASSWORD: contraseña para acceder mediante vnc
+
+Si queremos hacer un build en local podemos ejecutar:
+
+```bash
+docker build -t enriqueesanchz/entorno \
+--build-arg db=sigma \
+--build-arg dbuser=sigma \
+--build-arg dbpass=sigmadb \
+--build-arg wild_user=admin \
+--build-arg wild_password=admin \
+--build-arg USER=enrique \
+--build-arg PASSWORD=123456 .
+```
+
+Al hacer un push a github, si hemos modificado el build context, se lanza un pipeline para la construcción de la imagen y su publicación en dockerhub.
+
+### Uso
+
+Si solo queremos ser usuarios de este entorno podemos usar la versión de la imagen de dockerhub:
+
+```bash
+services:
+  desarrollo:
+    image: enriqueesanchz/entorno:latest
+    environment:
+      vpn_user=${vpn_user}
+      vpn_password=${vpn_password}
+    ports:
+      - "6901:5901" # vnc server
+      - "25:25" # email server
+    volumes:
+      - ./volumes/opt/wildfly/standalone:/opt/wildfly/standalone
+      - ./volumes/etc/apache2:/etc/apache2
+      - ./volumes/home/sigma:/home/sigma
+      - ./volumes/var/lib/mysql:/var/lib/mysql
+      - ./volumes/etc/openfortivpn:/etc/openfortivpn
+      - ./volumes/code:/code
+    cap_add:
+      - "NET_ADMIN"
+      - "NET_RAW"
+```
+
+1. Establecer las variables de entorno `vpn_user` y `vpn_password`
+2. `docker compose up`
+3. Instalar en la máquina host TigerVNC viewer
+4. `vncviewer localhost:6901`
+
 ## Componentes
 
 ### Dockerfile
@@ -116,18 +175,3 @@ Cada instrucción RUN y COPY generan una capa nueva para la imagen. Estas se ord
 1. Ordenamos las capas del Dockerfile colocando primero las que menos vayamos a modificar. Esto nos permitirá invalidar menos veces la caché.
 2. Tendremos más o menos capas según reconozcamos la necesidad de iterar rápido en la construcción del entorno, o de optimizar el peso de la imagen.
 
-## Instrucciones
-
-1. Establecer las variables de entorno necesarias para el build
-   1. db
-   2. dbuser
-   3. dbpass
-   4. wild_user
-   5. wild_password
-   6. vpn_user
-   7. vpn_password
-   8. USER: usuario para VNC
-   9. PASSWORD: contraseña para VNC
-2. `docker compose up`
-3. Instalar en la máquina host TigerVNC viewer
-4. `vncviewer localhost:6901`
