@@ -97,9 +97,37 @@ Siguen las mismas buenas prácticas que los scripts de instalación pero se enca
 
 Los ficheros estáticos se encuentran en la carpeta ./static. Son ficheros de configuración cuya ruta parte de la carpeta static como si esta fuera la raíz del sistema. También incluye claves ssh que no nos importa versionar puesto que son de prueba para el entorno de desarrollo.
 
+## Volúmenes
+
+Los volúmenes se han utilizado para compartir ficheros entre la máquina host y el contenedor de desarrollo, así como para persistir la información que queramos tener en sucesivas ejecuciones:
+
+- Código que estamos desarrollando
+- Base de datos
+- Directorio de usuario
+- Configuraciones
+  - Wildfly
+  - Apache
+  - VPN
+
 ## Caché de docker
 
 Cada instrucción RUN y COPY generan una capa nueva para la imagen. Estas se ordenan según aparecen en el Dockerfile. Si no modificamos una capa ni las anteriores, en el próximo build se reutilizarán, acelerando la construcción de la imagen. Por ello:
 
 1. Ordenamos las capas del Dockerfile colocando primero las que menos vayamos a modificar. Esto nos permitirá invalidar menos veces la caché.
 2. Tendremos más o menos capas según reconozcamos la necesidad de iterar rápido en la construcción del entorno, o de optimizar el peso de la imagen.
+
+## Instrucciones
+
+1. Establecer las variables de entorno necesarias para el build
+   1. db
+   2. dbuser
+   3. dbpass
+   4. wild_user
+   5. wild_password
+   6. vpn_user
+   7. vpn_password
+   8. USER: usuario para VNC
+   9. PASSWORD: contraseña para VNC
+2. `docker compose up`
+3. Instalar en la máquina host TigerVNC viewer
+4. `vncviewer localhost:6901`
