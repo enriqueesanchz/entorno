@@ -27,8 +27,8 @@ Esta es la opción escogida. Permite crear contenedores efímeros que contengan 
 Se encarga de agrupar los pasos necesarios para la construcción de la imagen que usaremos de entorno de desarrollo. Consta de 5 secciones:
 
 1. Inicio: declara la imagen de partida (si existe)
-2. Instalación de paquetes: ejecuta los scripts organizados en carpetas en ./packages 
-3. Variables de entorno: establece variables de entorno, entre otros, para la gestión de secretos
+2. Argumentos: establece variables de entorno, entre otros, para la gestión de secretos, durante el tiempo de build
+3. Instalación de paquetes: ejecuta la instalación mediante gestor de paquetes y scripts organizados en la carpeta ./packages 
 4. Configuración: ejecuta los scripts localizados en ./config
 5. Entrypoint: establece el script que se ejecuta cuando se lance el contenedor
 
@@ -57,8 +57,6 @@ Se han seguido las siguientes buenas prácticas:
 
 # Strict mode
 set -euo pipefail
-
-export DEBIAN_FRONTEND=noninteractive
 
 # Package name
 package="<nombre del paquete>"
@@ -97,14 +95,11 @@ Siguen las mismas buenas prácticas que los scripts de instalación pero se enca
 
 ### Ficheros estáticos
 
-Los ficheros estáticos se encuentran en la carpeta ./static, la cual no está subida al repositorio Git debido a que el control de versiones tradicional no está hecho para subir archivos de gran tamaño.
-
-- Plantear sistema de versiones mendiante hash para garantizar consistencia
+Los ficheros estáticos se encuentran en la carpeta ./static. Son ficheros de configuración cuya ruta parte de la carpeta static como si esta fuera la raíz del sistema. También incluye claves ssh que no nos importa versionar puesto que son de prueba para el entorno de desarrollo.
 
 ## Caché de docker
 
 Cada instrucción RUN y COPY generan una capa nueva para la imagen. Estas se ordenan según aparecen en el Dockerfile. Si no modificamos una capa ni las anteriores, en el próximo build se reutilizarán, acelerando la construcción de la imagen. Por ello:
 
 1. Ordenamos las capas del Dockerfile colocando primero las que menos vayamos a modificar. Esto nos permitirá invalidar menos veces la caché.
-2. Tendremos una capa por cada script de instalación/configuración que ejecutamos, de forma que tenemos más puntos de caché, más reutilización. Esto puede ser perjudicial a nivel de tamaño de imagen pero como estamos en fase de desarrollo consideramos más importante una correcta organización y rápida iteración.
-3. Si finalmente queremos optimizar el tamaño de la imagen (p.ej: para subirlo a un registro) podremos usar herramientas como `crane flatten`, `docker slim` y `docker squash` para reducir el número de capas.
+2. Tendremos más o menos capas según reconozcamos la necesidad de iterar rápido en la construcción del entorno, o de optimizar el peso de la imagen.
