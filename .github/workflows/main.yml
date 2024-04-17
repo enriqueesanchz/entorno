@@ -15,8 +15,68 @@ env:
   PASSWORD: 123456
 
 jobs:
+  get_modified:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: read
+    outputs:
+      FILES_MODIFIED: ${{ steps.set_files.outputs.FILES_MODIFIED }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files manually
+        run: |
+          files_list="$(git diff --name-only ${{ github.event.before }} HEAD | xargs)"
+          echo '# Files with git command' >> "${GITHUB_STEP_SUMMARY}"
+          echo '' >> "${GITHUB_STEP_SUMMARY}"
+          echo '```' >> "${GITHUB_STEP_SUMMARY}"
+
+          for file in ${files_list}; do
+            echo "$file was changed" >> "${GITHUB_STEP_SUMMARY}"
+          done
+
+          echo '```' >> "${GITHUB_STEP_SUMMARY}"
+
+          printf 'THE_FILES=%s\n' "${files_list}" >> "${GITHUB_ENV}"
+
+      - name: Get docker files modified
+        shell: python
+        run: |
+          from os import environ
+          files = environ.get("THE_FILES").split(' ')
+
+          with open(".dockerignore", 'r') as f:
+            for line in f:
+              # Elimino ficheros que esten en el .dockerignore de la lista
+              try:
+                files.remove(line.rstrip('\n'))
+              except ValueError:
+                print(line.rstrip('\n') + " not changed")
+
+          # Elimino string nulo en el caso de que lo haya
+          try:
+            files.remove('')
+          except ValueError:
+            pass
+
+          with open(environ.get("GITHUB_ENV"), 'a') as f:
+            f.write('FILES_MODIFIED=' + str(len(files)) + '\n')
+
+      - name: Set files modified as output
+        id: set_files
+        run: |
+          echo "FILES_MODIFIED=${FILES_MODIFIED}" >> $GITHUB_OUTPUT
+
   build:
     runs-on: ubuntu-latest
+    # Solo ejecuto el build + push si he cambiado algo del build context
+    if: ${{ needs.get_modified.outputs.FILES_MODIFIED > 0 }}
+    needs: get_modified
     steps:
       - name: Checkout
         uses: actions/checkout@v4
