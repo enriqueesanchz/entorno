@@ -1,17 +1,6 @@
 services:
   desarrollo:
-    build:
-      context: .
-      args:
-        - db=${db}
-        - dbuser=${dbuser}
-        - dbpass=${dbpass}
-        - wild_user=${wild_user}
-        - wild_password=${wild_password}
-        - vpn_user=${vpn_user}
-        - vpn_password=${vpn_password}
-        - USER=${USER}
-        - PASSWORD=${PASSWORD}
+    image: enriqueesanchz/entorno:latest
     ports: 
       - "6901:5901" # vnc server
       - "25:25" # email server
