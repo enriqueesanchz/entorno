@@ -2,6 +2,23 @@
 
 Trabajo Final de Máster de Enrique Sánchez Cardoso
 
+- [Problema a resolver](#problema-a-resolver)
+- [EaC](#eac)
+- [2 alternativas](#2-alternativas)
+  - [Máquina virtual](#máquina-vitual)
+  - [Contenedor](#contenedor)
+- [Instrucciones](#instrucciones)
+  - [Build](#build)
+  - [Uso](#uso)
+- [Componentes](#componentes)
+  - [Dockerfile](#dockerfile)
+  - [compose.yaml](#composeyaml)
+  - [Scripts de instalación](#scripts-de-instalación)
+  - [Scripts de configuración](#scripts-de-configuración)
+  - [Ficheros estáticos](#ficheros-estáticos)
+- [Volúmenes](#volúmenes)
+- [Caché de docker](#caché-de-docker)
+
 ## Problema a resolver
 
 Parte de los problemas que surgen en un equipo de desarrollo que trabaja sobre un mismo stack (BBDD, servidor de aplicaciones, datos de prueba, etc.) se deben a las diferencias en la configuración de la arquitectura que están usando, los datos de prueba, deficiencia en la gestión de dependencias, "it works on my machine", etc.
@@ -52,7 +69,7 @@ Al hacer un push a github, si hemos modificado el build context, se lanza un pip
 
 Si solo queremos ser usuarios de este entorno podemos usar la versión de la imagen de dockerhub:
 
-```bash
+```yaml
 services:
   desarrollo:
     image: enriqueesanchz/entorno:latest
