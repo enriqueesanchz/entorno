@@ -9,7 +9,7 @@ url='https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloa
 
 install() {
     wget ${url} -O /tmp/${package}.tar.gz
-    tar -xzf /tmp/${package}.tar.gz -C /opt
+    tar -xzf /tmp/${package}.tar.gz -C /opt 2> /dev/null
     chmod +x /opt/eclipse/eclipse
 
     # eclipse in PATH

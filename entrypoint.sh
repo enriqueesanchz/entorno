@@ -15,7 +15,7 @@ dirs=("/opt/wildfly/standalone"
     "/etc/openfortivpn/")
 
 for dir in "${dirs[@]}"; do
-    if [ -z "$(ls -A ${dir})" ]; then
+    if [ -z "$(ls -A ${dir} 2>/dev/null)" ]; then
         printf "${dir} vacio, usando default\n" 1>&2
         cp -rpT /default${dir} ${dir} # -T: no crear directorio en destino
     else
@@ -24,7 +24,7 @@ for dir in "${dirs[@]}"; do
 done
 
 # /code
-if [ -z "$(ls -A /code)" ]; then
+if [ -z "$(ls -A /code 2>/dev/null)" ]; then
     printf "/code vacio, clonando quickstart\n" 1>&2
     git clone https://github.com/wildfly/quickstart.git /code/quickstart
 else
