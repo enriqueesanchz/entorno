@@ -1,13 +1,6 @@
 FROM debian:10-slim
 
 ARG DEBIAN_FRONTEND=noninteractive
-ARG db
-ARG dbuser
-ARG dbpass
-ARG wild_user
-ARG wild_password
-ARG USER
-ARG PASSWORD
 
 RUN apt-get -y update && apt-get -y upgrade && \
     echo "wireshark-common wireshark-common/install-setuid boolean true" | \
@@ -47,7 +40,14 @@ RUN adduser sigma && adduser sigma sudo && adduser sigma wireshark
 
 WORKDIR /config
 COPY config .
-RUN for file in $(ls *.sh); do chmod +x ${file} && ./${file}; done
+ARG db
+ARG dbuser
+ARG dbpass
+ARG wild_user
+ARG wild_password
+ARG USER
+ARG PASSWORD
+RUN for file in *.sh; do chmod +x ${file} && ./${file}; done
 
 COPY entrypoint.sh /opt/
 RUN chmod +x /opt/entrypoint.sh
