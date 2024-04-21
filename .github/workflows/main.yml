@@ -32,7 +32,7 @@ jobs:
       - name: Get changed files manually
         run: |
           cd container
-          files_list="$(git diff --name-only ${{ github.event.before }} HEAD | xargs)"
+          files_list="$(git diff --name-only ${{ github.event.before }} . | awk -F/ '{print $NF}' | xargs)"
           echo '# Files with git command' >> "${GITHUB_STEP_SUMMARY}"
           echo '' >> "${GITHUB_STEP_SUMMARY}"
           echo '```' >> "${GITHUB_STEP_SUMMARY}"
