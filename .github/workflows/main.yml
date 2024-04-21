@@ -31,6 +31,7 @@ jobs:
 
       - name: Get changed files manually
         run: |
+          cd container
           files_list="$(git diff --name-only ${{ github.event.before }} HEAD | xargs)"
           echo '# Files with git command' >> "${GITHUB_STEP_SUMMARY}"
           echo '' >> "${GITHUB_STEP_SUMMARY}"
@@ -47,8 +48,9 @@ jobs:
       - name: Get docker files modified
         shell: python
         run: |
-          from os import environ
-          files = environ.get("THE_FILES").split(' ')
+          import os
+          os.chdir('./container')
+          files = os.environ.get("THE_FILES").split(' ')
 
           with open(".dockerignore", 'r') as f:
             for line in f:
@@ -64,7 +66,7 @@ jobs:
           except ValueError:
             pass
 
-          with open(environ.get("GITHUB_ENV"), 'a') as f:
+          with open(os.environ.get("GITHUB_ENV"), 'a') as f:
             f.write('FILES_MODIFIED=' + str(len(files)) + '\n')
 
       - name: Set files modified as output
@@ -93,8 +95,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./Dockerfile
+          context: ./container
+          file: ./container/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/entorno:latest
           build-args: |
