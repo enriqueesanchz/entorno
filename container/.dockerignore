@@ -2,3 +2,8 @@ volumes
 .env
 README.md
 compose.yaml
+terraform
+terraform.tfvars
+main.tf
+secrets.tf
+variables.tf

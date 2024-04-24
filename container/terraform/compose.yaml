@@ -1,0 +1,20 @@
+services:
+  desarrollo:
+    image: enriqueesanchz/entorno:latest
+    environment:
+      - vpn_user=${vpn_user}
+      - vpn_password=${vpn_password}
+    ports:
+      - "6901:5901" # vnc server
+      - "25:25" # email server
+    volumes:
+      - ./volumes/opt/wildfly/standalone:/opt/wildfly/standalone
+      - ./volumes/etc/apache2:/etc/apache2
+      - ./volumes/home/sigma:/home/sigma
+      - ./volumes/var/lib/mysql:/var/lib/mysql
+      - ./volumes/etc/openfortivpn:/etc/openfortivpn
+      - ./volumes/code:/code
+    cap_add:
+      - "NET_ADMIN"
+      - "NET_RAW"
+

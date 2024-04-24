@@ -40,3 +40,10 @@ default
 
 # Docker volumes
 volumes
+
+# Terraform
+secrets.tf
+.terraform
+.terraform.lock.hcl
+*.tfstate
+*.backup
