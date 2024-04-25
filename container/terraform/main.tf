@@ -10,7 +10,7 @@ terraform {
 }
 
 provider "aws" {
-  region  = "eu-west-3"
+  region = "eu-west-3"
 }
 
 resource "aws_security_group" "entorno-sec" {
@@ -57,7 +57,7 @@ resource "aws_s3_object" "entorno-s3" {
 }
 
 resource "aws_elastic_beanstalk_application" "entorno" {
-  name = var.eb_app_name
+  name = var.application
 }
 
 resource "aws_elastic_beanstalk_application_version" "entorno-1" {
@@ -70,20 +70,20 @@ resource "aws_elastic_beanstalk_application_version" "entorno-1" {
 
 resource "aws_elastic_beanstalk_environment" "entorno-env" {
   name                = var.eb_env_name
-  application         = "${aws_elastic_beanstalk_application.entorno.name}"
+  application         = aws_elastic_beanstalk_application.entorno.name
   solution_stack_name = "64bit Amazon Linux 2023 v4.3.1 running Docker"
-  version_label = aws_elastic_beanstalk_application_version.entorno-1.name
+  version_label       = aws_elastic_beanstalk_application_version.entorno-1.name
 
   setting {
     name      = "IamInstanceProfile"
     namespace = "aws:autoscaling:launchconfiguration"
-    value     = "aws-elasticbeanstalk-ec2-role" #TODO: documentar creacion
+    value     = var.ec2_role #TODO: documentar creacion
   }
 
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "SecurityGroups"
-    value     = "entorno-sec"
+    value     = var.security_group_name
   }
 
   setting {

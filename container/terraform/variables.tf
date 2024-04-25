@@ -1,9 +1,3 @@
-# Variable for aws_elastic_beanstalk_application
-variable "eb_app_name" {
-  description = "Name of the EB application"
-  default     = "NULL"
-}
-
 # Variables for aws_elastic_beanstalk_application_version
 variable "eb_app_version_name" {
   description = "Name of the EB application version"
@@ -57,3 +51,14 @@ variable "profile_name" {
   description = "Name of the IAM instance profile"
   default     = "NULL"
 }
+
+variable "ec2_role" {
+  description = "EC2 role for beanstalk"
+  default     = "NULL"
+}
+
+variable "security_group_name" {
+  description = "Security group name for EC2 instance"
+  default     = "NULL"
+}
+
