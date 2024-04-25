@@ -7,3 +7,4 @@ terraform.tfvars
 main.tf
 secrets.tf
 variables.tf
+outputs.tf

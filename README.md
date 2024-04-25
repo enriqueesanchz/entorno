@@ -10,6 +10,8 @@ Trabajo Final de Máster de Enrique Sánchez Cardoso
 - [Instrucciones](#instrucciones)
   - [Build](#build)
   - [Uso](#uso)
+  - [Despliegue en la nube](#despliegue-en-la-nube)
+    - [AWS](#aws)
 - [Componentes](#componentes)
   - [Dockerfile](#dockerfile)
   - [compose.yaml](#composeyaml)
@@ -105,7 +107,7 @@ Usando terraform se puede desplegar el entorno creado mediante contenedor de man
 - Crear un rol con permisos para crear instancias EC2: `aws-elasticbeanstalk-ec2-role`
 - Rellenar el fichero terraform.tfvars con los nombres que queramos establecer
 - Crear el fichero secrets.tf y añadir las variables `vpn_user` y `vpn_password` (sensitive para terraform)
-- Ejecutar `terraform init` y `terraform apply` 
+- Ejecutar `terraform init` y `terraform apply`
 
 El fichero main.tf está configurado para hacer uso de la capa gratuita de EC2 y S3. Primero sube el compose.yaml a S3, el cual usará Beanstalk para desplegar el contenedor en unas instancia EC2 con Docker.
 
