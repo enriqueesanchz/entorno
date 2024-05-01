@@ -23,6 +23,7 @@ Trabajo Final de Máster de Enrique Sánchez Cardoso
 - [Máquina virtual](#máquina-virtual)
   - [Dependencias](#dependencias)
   - [Uso](#uso-1)
+  - [Desventajas](#desventajas)
 
 ## Problema a resolver
 
@@ -231,3 +232,21 @@ Debemos tener instalado en la máquina host:
 Nos dirigimos al directorio `vm` y ejecutamos `vagrant up`. La primera vez se ejecutará el script de provisioning que construye el entorno.
 
 Cuando finalice el proceso podremos acceder al entorno mediante `vncviewer localhost:6901`
+
+### Desventajas
+
+#### Rapidez de iteración
+
+A diferencia de los contenedores, las máquinas virtuales no utilizan el modelo por capas, por lo que modificar algo en los scripts de provisionamiento (necesario mantenerlos actualizados si queremos que todos los entornos sean iguales) conlleva la destrucción y creación de nuevo de la máquina virtual. Esto es un proceso lento y tedioso.
+
+#### Destruir y levantar
+
+Lo ideal es tener un entorno "como nuevo" cada vez. De nuevo, levantar una máquina virtual es más lento que un contenedor.
+
+#### Deriva
+
+Una vez construida la máquina virtual no se puede llevar un control de cambios sobre ella.
+
+#### NFS
+
+Para poder compartir el directorio de datos de mariadb (/var/lib/mysql) se ha necesitado hacer uso de NFS ya que no es compatible con el método estándar de carpetas sincronizadas de Virtualbox.
