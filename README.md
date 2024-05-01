@@ -20,7 +20,7 @@ Trabajo Final de Máster de Enrique Sánchez Cardoso
     - [Ficheros estáticos](#ficheros-estáticos)
   - [Volúmenes](#volúmenes)
   - [Caché de docker](#caché-de-docker)
-- [Máquina virtual](#máquina-vitual)
+- [Máquina virtual](#máquina-virtual)
   - [Dependencias](#dependencias)
   - [Uso](#uso-1)
 
