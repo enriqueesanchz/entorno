@@ -24,6 +24,10 @@ Trabajo Final de Máster de Enrique Sánchez Cardoso
   - [Dependencias](#dependencias)
   - [Uso](#uso-1)
   - [Desventajas](#desventajas)
+    - [Rapidez de iteración](#rapidez-de-iteración)
+    - [Destruir y levantar](#destruir-y-levantar)
+    - [Deriva](#deriva)
+    - [NFS](#nfs)
 
 ## Problema a resolver
 
