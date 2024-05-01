@@ -37,7 +37,7 @@ cd /packages
 chmod +x ./eclipse.sh && ./eclipse.sh && \
 chmod +x ./wildfly.sh && ./wildfly.sh
 
-adduser sigma && adduser sigma sudo && adduser sigma wireshark
+adduser sigma sudo && adduser sigma wireshark
 
 cd /config
 export db=sigma
@@ -48,5 +48,5 @@ export wild_password=admin
 export USER="enrique"
 export PASSWORD="123456"
 
-#for file in *.sh; do chmod +x ${file} && ./${file}; done
+for file in *.sh; do chmod +x ${file} && ./${file}; done
 
