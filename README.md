@@ -7,7 +7,7 @@ Trabajo Final de Máster de Enrique Sánchez Cardoso
 - [2 alternativas](#2-alternativas)
   - [Máquina virtual](#máquina-vitual)
   - [Contenedor](#contenedor)
-- [Instrucciones](#instrucciones)
+- [Contenedor](#contenedor)
   - [Build](#build)
   - [Uso](#uso)
   - [Despliegue en la nube](#despliegue-en-la-nube)
@@ -20,6 +20,9 @@ Trabajo Final de Máster de Enrique Sánchez Cardoso
   - [Ficheros estáticos](#ficheros-estáticos)
 - [Volúmenes](#volúmenes)
 - [Caché de docker](#caché-de-docker)
+- [Máquina virtual](#máquina-vitual)
+  - [Dependencias](#dependencias)
+  - [Uso](#uso)
 
 ## Problema a resolver
 
@@ -31,15 +34,15 @@ Con este trabajo se propone un entorno de desarrollo definido mediante código (
 
 ## 2 alternativas
 
-### Máquina vitual
+### Alternativa - Máquina vitual
 
-En un principio se exploró esta opción ya que permite montar un entorno automatizado mediante Vagrant y scripts de configuración. Se terminó descartando puesto que una vez sea construida la máquina no se puede llevar un control de los cambios sobre ella, entrando de nuevo en la deriva del entorno de desarrollo.
+En un principio se exploró esta opción ya que permite montar un entorno automatizado mediante Vagrant y scripts de configuración. Se terminó descartando puesto que una vez sea construida la máquina no se puede llevar un control de los cambios sobre ella, entrando de nuevo en la deriva del entorno de desarrollo. No ofrece mejoras respecto al entorno en contenedores.
 
-### Contenedor
+### Alternativa - Contenedor
 
 Esta es la opción escogida. Permite crear contenedores efímeros que contengan la arquitectura completa necesaria para trabajar. Cuando queramos modificar esta arquitectura lo haremos mediante el Dockerfile y los scripts de instalación/configuración. Estos estarán versionados.
 
-## Instrucciones
+## Contenedor
 
 ### Build
 
@@ -52,7 +55,7 @@ Esta es la opción escogida. Permite crear contenedores efímeros que contengan 
   - USER: usuario para acceder mendiante vnc
   - PASSWORD: contraseña para acceder mediante vnc
 
-Si queremos hacer un build en local podemos ejecutar:
+Si queremos hacer un build en local nos dirijimos al directorio `container` y ejecutamos:
 
 ```bash
 docker build -t enriqueesanchz/entorno \
@@ -209,3 +212,22 @@ Cada instrucción RUN y COPY generan una capa nueva para la imagen. Estas se ord
 1. Ordenamos las capas del Dockerfile colocando primero las que menos vayamos a modificar. Esto nos permitirá invalidar menos veces la caché.
 2. Tendremos más o menos capas según reconozcamos la necesidad de iterar rápido en la construcción del entorno, o de optimizar el peso de la imagen.
 
+---
+
+## Máquina virtual
+
+Se ha incluido para justificar la comparación con la solución de contenedores, pero vistas las razones anteriormente expuestas, no presenta ventajas.
+
+### Dependencias
+
+Debemos tener instalado en la máquina host:
+
+- Virtualbox
+- Vagrant
+- Servidor NFS
+
+### Uso
+
+Nos dirigimos al directorio `vm` y ejecutamos `vagrant up`. La primera vez se ejecutará el script de provisioning que construye el entorno.
+
+Cuando finalice el proceso podremos acceder al entorno mediante `vncviewer localhost:6901`
