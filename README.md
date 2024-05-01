@@ -5,24 +5,24 @@ Trabajo Final de Máster de Enrique Sánchez Cardoso
 - [Problema a resolver](#problema-a-resolver)
 - [EaC](#eac)
 - [2 alternativas](#2-alternativas)
-  - [Máquina virtual](#máquina-vitual)
-  - [Contenedor](#contenedor)
+  - [Alternativa - Contenedor](#alternativa---contenedor)
+  - [Alternativa - Máquina virtual](#alternativa---máquina-vitual)
 - [Contenedor](#contenedor)
   - [Build](#build)
   - [Uso](#uso)
   - [Despliegue en la nube](#despliegue-en-la-nube)
     - [AWS](#aws)
-- [Componentes](#componentes)
-  - [Dockerfile](#dockerfile)
-  - [compose.yaml](#composeyaml)
-  - [Scripts de instalación](#scripts-de-instalación)
-  - [Scripts de configuración](#scripts-de-configuración)
-  - [Ficheros estáticos](#ficheros-estáticos)
-- [Volúmenes](#volúmenes)
-- [Caché de docker](#caché-de-docker)
+  - [Componentes](#componentes)
+    - [Dockerfile](#dockerfile)
+    - [compose.yaml](#composeyaml)
+    - [Scripts de instalación](#scripts-de-instalación)
+    - [Scripts de configuración](#scripts-de-configuración)
+    - [Ficheros estáticos](#ficheros-estáticos)
+  - [Volúmenes](#volúmenes)
+  - [Caché de docker](#caché-de-docker)
 - [Máquina virtual](#máquina-vitual)
   - [Dependencias](#dependencias)
-  - [Uso](#uso)
+  - [Uso](#uso-1)
 
 ## Problema a resolver
 
@@ -34,13 +34,13 @@ Con este trabajo se propone un entorno de desarrollo definido mediante código (
 
 ## 2 alternativas
 
-### Alternativa - Máquina vitual
-
-En un principio se exploró esta opción ya que permite montar un entorno automatizado mediante Vagrant y scripts de configuración. Se terminó descartando puesto que una vez sea construida la máquina no se puede llevar un control de los cambios sobre ella, entrando de nuevo en la deriva del entorno de desarrollo. No ofrece mejoras respecto al entorno en contenedores.
-
 ### Alternativa - Contenedor
 
 Esta es la opción escogida. Permite crear contenedores efímeros que contengan la arquitectura completa necesaria para trabajar. Cuando queramos modificar esta arquitectura lo haremos mediante el Dockerfile y los scripts de instalación/configuración. Estos estarán versionados.
+
+### Alternativa - Máquina vitual
+
+En un principio se exploró esta opción ya que permite montar un entorno automatizado mediante Vagrant y scripts de configuración. Se terminó descartando puesto que una vez sea construida la máquina no se puede llevar un control de los cambios sobre ella, entrando de nuevo en la deriva del entorno de desarrollo. No ofrece mejoras respecto al entorno en contenedores.
 
 ## Contenedor
 
