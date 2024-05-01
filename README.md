@@ -8,6 +8,7 @@ Trabajo Final de Máster de Enrique Sánchez Cardoso
   - [Alternativa - Contenedor](#alternativa---contenedor)
   - [Alternativa - Máquina virtual](#alternativa---máquina-vitual)
 - [Contenedor](#contenedor)
+  - [Dependencias](#dependencias)
   - [Build](#build)
   - [Uso](#uso)
   - [Despliegue en la nube](#despliegue-en-la-nube)
@@ -20,8 +21,9 @@ Trabajo Final de Máster de Enrique Sánchez Cardoso
     - [Ficheros estáticos](#ficheros-estáticos)
   - [Volúmenes](#volúmenes)
   - [Caché de docker](#caché-de-docker)
+
 - [Máquina virtual](#máquina-virtual)
-  - [Dependencias](#dependencias)
+  - [Dependencias](#dependencias-1)
   - [Uso](#uso-1)
   - [Desventajas](#desventajas)
     - [Rapidez de iteración](#rapidez-de-iteración)
@@ -48,6 +50,13 @@ Esta es la opción escogida. Permite crear contenedores efímeros que contengan 
 En un principio se exploró esta opción ya que permite montar un entorno automatizado mediante Vagrant y scripts de configuración. Se terminó descartando puesto que una vez sea construida la máquina no se puede llevar un control de los cambios sobre ella, entrando de nuevo en la deriva del entorno de desarrollo. No ofrece mejoras respecto al entorno en contenedores.
 
 ## Contenedor
+
+### Dependencias
+
+Debemos tener instalado en la máquina host:
+
+- Docker
+- VNC viewer
 
 ### Build
 
