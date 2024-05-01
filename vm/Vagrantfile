@@ -4,7 +4,6 @@
 # Box / OS
 VAGRANT_BOX = 'bento/debian-10'
 VM_NAME = 'cloud'
-VM_USER = 'sigma'
 
 Vagrant.configure(2) do |config|
   config.vm.box = VAGRANT_BOX
