@@ -14,7 +14,7 @@ provider "aws" {
 }
 
 resource "aws_security_group" "entorno-sec" {
-  name = "entorno-sec"
+  name = var.security_group_name
   ingress {
     from_port        = 6901
     to_port          = 6901
@@ -77,7 +77,7 @@ resource "aws_elastic_beanstalk_environment" "entorno-env" {
   setting {
     name      = "IamInstanceProfile"
     namespace = "aws:autoscaling:launchconfiguration"
-    value     = var.ec2_role #TODO: documentar creacion
+    value     = var.ec2_role
   }
 
   setting {
