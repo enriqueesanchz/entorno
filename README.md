@@ -56,7 +56,7 @@ En un principio se exploró esta opción ya que permite montar un entorno automa
 Debemos tener instalado en la máquina host:
 
 - Docker
-- VNC viewer
+- Tiger VNC viewer
 
 ### Build
 
@@ -237,14 +237,17 @@ Se ha incluido para justificar la comparación con la solución de contenedores,
 Debemos tener instalado en la máquina host:
 
 - Virtualbox
-- Vagrant
+- Vagrant + plugin vagrant-vbguest
 - Servidor NFS
+- Tiger VNC viewer
 
 ### Uso
 
-Nos dirigimos al directorio `vm` y ejecutamos `vagrant up`. La primera vez se ejecutará el script de provisioning que construye el entorno.
-
-Cuando finalice el proceso podremos acceder al entorno mediante `vncviewer localhost:6901`
+1. Establecer las variables de entorno `vpn_user` y `vpn_password`
+2. Rellenar las variables de build en el fichero `provision.sh`
+3. En el directorio `vm` ejecutamos `vagrant up`. La primera vez se ejecutará el script de provisioning que construye el entorno.
+4. Instalar en la máquina host TigerVNC viewer
+5. `vncviewer localhost:6901`
 
 ### Desventajas
 
