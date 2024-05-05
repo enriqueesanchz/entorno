@@ -104,5 +104,4 @@ jobs:
               dbpass=${{ env.DBPASS }}
               wild_user=${{ env.WILD_USER }}
               wild_password=${{ env.WILD_PASSWORD }}
-              USER=${{ env.USER }}
-              PASSWORD=${{ env.PASSWORD }}
+              tigervncpasswd=${{ env.tigervncpasswd }}
