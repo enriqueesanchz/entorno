@@ -45,8 +45,7 @@ ARG dbuser
 ARG dbpass
 ARG wild_user
 ARG wild_password
-ARG USER
-ARG PASSWORD
+ARG tigervncpasswd
 RUN for file in *.sh; do chmod +x ${file} && ./${file}; done
 
 COPY entrypoint.sh /opt/

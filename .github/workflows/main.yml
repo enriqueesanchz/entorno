@@ -11,8 +11,7 @@ env:
   DBPASS: sigmadb
   WILD_USER: admin
   WILD_PASSWORD: admin
-  USER: enrique
-  PASSWORD: 123456
+  tigervncpasswd: 123456
 
 jobs:
   get_modified:
