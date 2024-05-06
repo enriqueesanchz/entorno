@@ -4,7 +4,7 @@
 set -euo pipefail
 
 # Package name
-package="tightvncserver"
+package="tigervncserver"
 
 # Config
 configure() {
