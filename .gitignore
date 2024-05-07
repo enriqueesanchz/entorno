@@ -47,3 +47,4 @@ secrets.tf
 .terraform.lock.hcl
 *.tfstate
 *.backup
+priv_key
