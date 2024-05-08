@@ -45,8 +45,7 @@ export dbuser=sigma
 export dbpass=sigmadb
 export wild_user=admin
 export wild_password=admin
-export USER="enrique"
-export PASSWORD="123456"
+export tigervncpasswd="123456"
 
 for file in *.sh; do chmod +x ${file} && ./${file}; done
 
