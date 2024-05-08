@@ -107,7 +107,7 @@ resource "aws_instance" "app_server" {
   }
 
   provisioner "file" {
-    source      = "./provision.sh"
+    source      = "../provision.sh"
     destination = "/tmp/provision.sh"
   }
 
@@ -116,17 +116,10 @@ resource "aws_instance" "app_server" {
     destination = "/tmp/init.sh"
   }
 
-  provisioner "local-exec" {
-    command  = <<EOT
-    ssh -i ./priv_key/${self.key_name}.pem -o "StrictHostKeyChecking no" \
-    admin@${self.public_dns} \
-    "sudo apt update && sudo apt-get install -y tigervnc-standalone-server"
-    EOT
-  }
-
   # Solo se puede copiar a directorios no protegidos con el provisioner file
   provisioner "remote-exec" {
     inline = [
+      "sudo apt update && sudo apt-get install -y tigervnc-standalone-server",
       "sudo groupadd sigma -g 1001",
       "sudo /usr/sbin/useradd sigma -u 1001 -g 1001 -s /bin/bash",
       "sudo cp -r /tmp/packages / && rm -rf /tmp/packages",
