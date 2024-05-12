@@ -4,11 +4,11 @@
 set -euo pipefail
 
 # Package name
-package="tightvncserver"
+package="tigervncserver"
 
 # Config
 configure() {
-    mkdir /home/sigma/.vnc
+    mkdir -p /home/sigma/.vnc
     echo ${tigervncpasswd} | vncpasswd -f > /home/sigma/.vnc/passwd
     chmod 600 /home/sigma/.vnc/passwd
 }
