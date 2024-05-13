@@ -29,7 +29,7 @@ Trabajo Final de Máster de Enrique Sánchez Cardoso
     - [AWS](#aws-1)
   - [Desventajas](#desventajas)
     - [Rapidez de iteración](#rapidez-de-iteración)
-    - [Destruir y levantar](#destruir-y-levantar)
+    - [Levantar, destruir y crear](#levantar-destruir-y-crear)
     - [Deriva](#deriva)
     - [Almacenamiento](#almacenamiento)
     - [NFS](#nfs)
