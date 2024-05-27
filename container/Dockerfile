@@ -45,8 +45,8 @@ RUN apt-get -y update && apt-get -y upgrade && \
 
 EXPOSE 5901
 
-COPY --from=wildfly-builder --chown=sigma:sigma /opt/wildfly /opt/wildfly
-COPY --from=eclipse-builder --chown=sigma:sigma /opt/eclipse /opt/eclipse
+COPY --from=wildfly-builder /opt/wildfly /opt/wildfly
+COPY --from=eclipse-builder /opt/eclipse /opt/eclipse
 
 COPY static /
 
