@@ -1,3 +1,11 @@
+FROM alpine:3.20 as eclipse-builder
+
+RUN apk add wget
+
+WORKDIR /packages
+COPY ./packages/eclipse.sh .
+RUN chmod +x ./eclipse.sh && sh ./eclipse.sh
+
 FROM debian:10-slim
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -31,8 +39,8 @@ EXPOSE 5901
 
 WORKDIR /packages
 COPY packages .
-RUN chmod +x ./eclipse.sh && ./eclipse.sh && \
-    chmod +x ./wildfly.sh && ./wildfly.sh
+RUN chmod +x ./wildfly.sh && ./wildfly.sh
+COPY --from=eclipse-builder /opt/eclipse /opt/eclipse
 
 COPY static /
 
