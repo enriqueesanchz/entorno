@@ -1,10 +1,18 @@
 FROM alpine:3.20 as eclipse-builder
 
-RUN apk add wget
+RUN apk add bash wget
 
 WORKDIR /packages
 COPY ./packages/eclipse.sh .
-RUN chmod +x ./eclipse.sh && sh ./eclipse.sh
+RUN chmod +x ./eclipse.sh && ./eclipse.sh
+
+FROM alpine:3.20 as wildfly-builder
+
+RUN apk add bash wget unzip openjdk11
+
+WORKDIR /packages
+COPY ./packages/wildfly.sh .
+RUN chmod +x ./wildfly.sh && ./wildfly.sh
 
 FROM debian:10-slim
 
@@ -37,10 +45,8 @@ RUN apt-get -y update && apt-get -y upgrade && \
 
 EXPOSE 5901
 
-WORKDIR /packages
-COPY packages .
-RUN chmod +x ./wildfly.sh && ./wildfly.sh
-COPY --from=eclipse-builder /opt/eclipse /opt/eclipse
+COPY --from=wildfly-builder --chown=sigma:sigma /opt/wildfly /opt/wildfly
+COPY --from=eclipse-builder --chown=sigma:sigma /opt/eclipse /opt/eclipse
 
 COPY static /
 

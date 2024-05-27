@@ -12,6 +12,14 @@ INSTALLDIR="/opt"
 CLI="$INSTALLDIR/${package}/bin/jboss-cli.sh --connect controller=127.0.0.1"
 
 configure() {
+    groupadd -r ${package}
+    useradd -r -g ${package} -d /opt/${package} -s /sbin/nologin ${package}
+    mkdir -p /etc/${package}
+    cp /opt/${package}/docs/contrib/scripts/systemd/${package}.conf /etc/${package}
+    cp /opt/${package}/docs/contrib/scripts/systemd/launch.sh /opt/${package}/bin/
+    chmod +x /opt/${package}/bin/*.sh
+    cp /opt/${package}/docs/contrib/scripts/systemd/wildfly.service /etc/systemd/system/
+
     service mysql restart
 
     printf "[mariadb] waiting init"
