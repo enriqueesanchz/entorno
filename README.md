@@ -69,11 +69,6 @@ Debemos tener instalado en la máquina host:
   - dbpass: contraseña de la base de datos
   - wild_user: usuario administrador de wildfly
   - wild_password: contraseña de administrador de wildfly
-- ENV
-  - vpn_user: usuario para la vpn de openfortivpn
-  - vpn_password: contraseña para el usuario de la vpn de openfortivpn
-  - tigervncpasswd: contraseña para acceder mediante vnc
-
 
 Si queremos hacer un build en local nos dirijimos al directorio `container` y ejecutamos:
 
@@ -118,6 +113,9 @@ services:
 ```
 
 1. Establecer las variables de entorno `vpn_user`, `vpn_password` y `tigervncpasswd`
+   - vpn_user: usuario para la vpn de openfortivpn
+   - vpn_password: contraseña para el usuario de la vpn de openfortivpn
+   - tigervncpasswd: contraseña para acceder mediante vnc
 2. `docker compose up`
 3. Instalar en la máquina host TigerVNC viewer
 4. `vncviewer localhost:6901`
@@ -130,7 +128,7 @@ Usando terraform se puede desplegar el entorno creado mediante contenedor de man
 
 - Crear un rol con permisos para crear y destruir instancias EC2 y sus respectivos grupos de seguridad, y buckets S3.
 - Rellenar el fichero terraform.tfvars con los nombres que queramos establecer
-- Crear el fichero secrets.tf y añadir las variables `vpn_user` y `vpn_password` (sensitive para terraform)
+- Crear el fichero secrets.tf y añadir las variables `vpn_user`, `vpn_password` y `tigervncpasswd` (sensitive para terraform)
 - Ejecutar `terraform init` y `terraform apply`
 
 El fichero main.tf está configurado para hacer uso de la capa gratuita de EC2 y S3. Primero sube el compose.yaml a S3, el cual usará Beanstalk para desplegar el contenedor en unas instancia EC2 con Docker.
