@@ -4,6 +4,7 @@ services:
     environment:
       - vpn_user=${vpn_user}
       - vpn_password=${vpn_password}
+      - tigervncpasswd=${tigervncpasswd}
     ports:
       - "6901:5901" # vnc server
       - "2525:25" # email server

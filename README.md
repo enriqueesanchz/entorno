@@ -69,7 +69,11 @@ Debemos tener instalado en la máquina host:
   - dbpass: contraseña de la base de datos
   - wild_user: usuario administrador de wildfly
   - wild_password: contraseña de administrador de wildfly
+- ENV
+  - vpn_user: usuario para la vpn de openfortivpn
+  - vpn_password: contraseña para el usuario de la vpn de openfortivpn
   - tigervncpasswd: contraseña para acceder mediante vnc
+
 
 Si queremos hacer un build en local nos dirijimos al directorio `container` y ejecutamos:
 
@@ -79,8 +83,7 @@ docker build -t enriqueesanchz/entorno \
 --build-arg dbuser=sigma \
 --build-arg dbpass=sigmadb \
 --build-arg wild_user=admin \
---build-arg wild_password=admin \
---build-arg tigervncpasswd=123456 .
+--build-arg wild_password=admin .
 ```
 
 Al hacer un push a github, si hemos modificado el build context, se lanza un pipeline para la construcción de la imagen y su publicación en dockerhub.
@@ -96,6 +99,7 @@ services:
     environment:
       - vpn_user=${vpn_user}
       - vpn_password=${vpn_password}
+      - tigervncpasswd=${tigervncpasswd}
     ports: 
       - "6901:5901" # vnc server
       - "2525:25" # email server
@@ -113,7 +117,7 @@ services:
       - "NET_RAW"
 ```
 
-1. Establecer las variables de entorno `vpn_user` y `vpn_password`
+1. Establecer las variables de entorno `vpn_user`, `vpn_password` y `tigervncpasswd`
 2. `docker compose up`
 3. Instalar en la máquina host TigerVNC viewer
 4. `vncviewer localhost:6901`
