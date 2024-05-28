@@ -22,6 +22,7 @@ clean() {
 
 remove() {
     rm -rf /opt/eclipse
+    rm /usr/bin/eclipse
 }
 
 trap clean EXIT
