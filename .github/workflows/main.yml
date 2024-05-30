@@ -11,7 +11,6 @@ env:
   DBPASS: sigmadb
   WILD_USER: admin
   WILD_PASSWORD: admin
-  tigervncpasswd: 123456
 
 jobs:
   get_modified:
@@ -104,4 +103,3 @@ jobs:
               dbpass=${{ env.DBPASS }}
               wild_user=${{ env.WILD_USER }}
               wild_password=${{ env.WILD_PASSWORD }}
-              tigervncpasswd=${{ env.tigervncpasswd }}
