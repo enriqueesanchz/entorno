@@ -269,7 +269,7 @@ Usando terraform se puede desplegar el entorno creado mediante máquina virtual 
 
 - Rellenar el fichero terraform.tfvars con los nombres que queramos establecer
 - Editar las variables de build establecidas en el script provision.sh que se ejecutará para crear el entonrno
-- Crear el fichero secrets.tf y añadir las variables `vpn_user` (sensitive para terraform)
+- Crear el fichero secrets.tf y añadir las variables `tigervncpasswd` (sensitive para terraform)
 - Ejecutar `terraform init` y `terraform apply`
 
 El fichero main.tf está configurado para hacer uso de la capa gratuita de EC2. Tendremos un security group que permita el tráfico al puerto 5901 con el que podremos acceder mediante VNC.
