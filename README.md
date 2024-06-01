@@ -268,7 +268,8 @@ Debemos tener instalado en la máquina host:
 Usando terraform se puede desplegar el entorno creado mediante máquina virtual de manera automática, en este caso, en AWS EC2. Para ello debemos:
 
 - Rellenar el fichero terraform.tfvars con los nombres que queramos establecer
-- Editar las variables de entorno establecidas en el script provision.sh que se ejecutará para crear el entonrno
+- Editar las variables de build establecidas en el script provision.sh que se ejecutará para crear el entonrno
+- Crear el fichero secrets.tf y añadir las variables `vpn_user` (sensitive para terraform)
 - Ejecutar `terraform init` y `terraform apply`
 
 El fichero main.tf está configurado para hacer uso de la capa gratuita de EC2. Tendremos un security group que permita el tráfico al puerto 5901 con el que podremos acceder mediante VNC.
