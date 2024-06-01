@@ -25,6 +25,8 @@ install() {
 
 clean() {
     rm /tmp/galleon-${GV}.zip
+    rm -rf /opt/galleon-${GV}
+    rm /opt/galleon
 }
 
 remove() {
