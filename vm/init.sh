@@ -13,6 +13,12 @@ fi
 
 # mysql permission
 chown -R mysql:mysql /var/lib/mysql
+
+# vnc session
+mkdir -p /home/sigma/.vnc
+echo ${tigervncpasswd} | vncpasswd -f > /home/sigma/.vnc/passwd
+chmod 600 /home/sigma/.vnc/passwd
+
 chown -R sigma:sigma /home/sigma
 
 cd /home/sigma

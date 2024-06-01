@@ -34,7 +34,9 @@ apt-get autoremove && apt-get clean && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 cd /packages
-chmod +x ./eclipse.sh && ./eclipse.sh && \
+
+# run on background
+chmod +x ./eclipse.sh && ./eclipse.sh &
 chmod +x ./wildfly.sh && ./wildfly.sh
 
 adduser sigma sudo && adduser sigma wireshark
@@ -45,7 +47,6 @@ export dbuser=sigma
 export dbpass=sigmadb
 export wild_user=admin
 export wild_password=admin
-export tigervncpasswd="123456"
 
 for file in *.sh; do chmod +x ${file} && ./${file}; done
 
