@@ -51,6 +51,8 @@ Vagrant.configure(2) do |config|
 
   # Entrypoint
   config.vm.provision "shell", run: "always", path: "init.sh",
-    env: {"tigervncpasswd" => ENV["tigervncpasswd"]}
+    env: {"tigervncpasswd" => ENV["tigervncpasswd"],
+          "vpn_user" => ENV["vpn_user"],
+          "vpn_password" => ENV["vpn_password"]}
 end
 

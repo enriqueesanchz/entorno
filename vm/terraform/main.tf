@@ -112,7 +112,7 @@ resource "aws_instance" "app_server" {
   }
 
   provisioner "file" {
-    source      = "../init.sh"
+    source      = "./init.sh"
     destination = "/tmp/init.sh"
   }
 
@@ -129,6 +129,10 @@ resource "aws_instance" "app_server" {
       "sudo mv /tmp/provision.sh /scripts",
       "sudo mv /tmp/init.sh /scripts",
       "sudo chmod +x /scripts/provision.sh && sudo /scripts/provision.sh",
+      "sudo mkdir -p /home/sigma/.vnc",
+      "sudo echo ${var.tigervncpasswd} | sudo vncpasswd -f > /tmp/passwd",
+      "sudo mv /tmp/passwd /home/sigma/.vnc/", 
+      "sudo chmod 600 /home/sigma/.vnc/passwd",
       "sudo chmod +x /scripts/init.sh && sudo /scripts/init.sh"
     ]
   }
