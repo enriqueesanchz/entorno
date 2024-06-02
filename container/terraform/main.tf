@@ -16,14 +16,6 @@ provider "aws" {
 resource "aws_security_group" "entorno-sec" {
   name = var.security_group_name
   ingress {
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
-  }
-
-  ingress {
     from_port        = 6901
     to_port          = 6901
     protocol         = "tcp"
@@ -92,12 +84,6 @@ resource "aws_elastic_beanstalk_environment" "entorno-env" {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "SecurityGroups"
     value     = var.security_group_name
-  }
-
-  setting {
-    namespace = "aws:autoscaling:launchconfiguration"
-    name      = "EC2KeyName"
-    value     = "prueba"
   }
 
   setting {
