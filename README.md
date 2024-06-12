@@ -97,7 +97,6 @@ services:
       - tigervncpasswd=${tigervncpasswd}
     ports: 
       - "6901:5901" # vnc server
-      - "2525:25" # email server
     volumes:
       - ./volumes/opt/wildfly/standalone:/opt/wildfly/standalone
       - ./volumes/etc/apache2:/etc/apache2
