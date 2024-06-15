@@ -10,8 +10,8 @@ platform    = "64bit Amazon Linux 2023 v4.0.1 running Docker"
 bucket_prefix = "entorno-s3"
 
 # Variables for aws_s3_object
-key_file    = "compose.yaml"
-source_file = "../compose.yaml"
+key_file    = "package.zip"
+source_file = "./package.zip"
 
 # Variable for aws_iam_role
 role_name = "beanstalk_role"
